@@ -20,7 +20,7 @@
         <jjwt.version>0.12.5</jjwt.version>
         <jpa.version>3.2.0</jpa.version>
         <bouncycastle.version>1.77</bouncycastle.version>
-        <demo.version>0.0.1</demo.version>
+        <model.libary>0.0.1</model.libary>
         <springdoc.openapi-ui>1.8.0</springdoc.openapi-ui>
         <springdoc.openapi-webmvc-ui>2.1.0</springdoc.openapi-webmvc-ui>
     </properties>
@@ -111,7 +111,7 @@
         <dependency>
             <groupId>dev.jda</groupId>
             <artifactId>demo-model-libary</artifactId>
-            <version>0.0.1</version>
+            <version>${model.libary}</version>
         </dependency>
     </dependencies>
 
