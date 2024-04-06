@@ -45,6 +45,32 @@ class DemoServiceTest {
 
         assertThrows(EntityNotFoundException.class, () -> unitToTest.getDemoByCode(DEMO_CODE));
     }
+    @Test
+    void patchProductByUuidTest() {
+        // Arrange
+        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
+        Demo demo = Demo.builder()
+                .code("1234")
+                .name("henk")
+                .uuid(uuid)
+                .build();
+        Demo updatedDemo = Demo.builder()
+                .code("5678")
+                .name("piet")
+                .uuid(uuid)
+                .build();
+
+        when(demoRepository.findById(uuid)).thenReturn(Optional.of(demo));
+        when(demoRepository.save(any(Demo.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Act
+        unitToTest.saveDemoByUuid(uuid, updatedDemo);
+
+        // Assert
+        assertEquals(updatedDemo.getCode(), demo.getCode());
+        assertEquals(updatedDemo.getName(), demo.getName());
+        assertEquals(updatedDemo.getUuid(), demo.getUuid());
+    }
 
     private Demo createDemo(){
         return Demo.builder()

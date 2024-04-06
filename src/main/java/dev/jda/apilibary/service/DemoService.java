@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class DemoService {
@@ -31,12 +33,14 @@ public class DemoService {
         return demoRepository.findAll(pageable);
     }
 
-    public Demo saveDemoByUuid(Demo demoDTO) {
-        Demo existingDemo = demoRepository.findById(demoDTO.getUuid())
-                .orElseThrow(() -> new EntityNotFoundException(DEMO_NOTFOUND));
-        existingDemo.setCode(demoDTO.getCode());
-        existingDemo.setName(demoDTO.getName());
-        existingDemo.setUuid(demoDTO.getUuid());
-        return demoRepository.save(existingDemo);
+    public Demo saveDemoByUuid(String uuid, Demo demo) {
+        Demo existingDemo = demoRepository.findById(uuid).orElseThrow(() -> new EntityNotFoundException(DEMO_NOTFOUND));
+
+        Optional.ofNullable(demo.getCode()).ifPresent(existingDemo::setCode);
+        Optional.ofNullable(demo.getName()).ifPresent(existingDemo::setName);
+        Optional.ofNullable(demo.getUuid()).ifPresent(existingDemo::setUuid);
+
+        demoRepository.save(existingDemo);
+        return existingDemo;
     }
 }

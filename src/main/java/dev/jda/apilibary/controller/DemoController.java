@@ -51,7 +51,7 @@ public class DemoController implements DemoApi {
             throw new IllegalArgumentException("UUID must not be null");
         }
         Demo demo = modelMapper.map(demoDTO, Demo.class);
-        return demoRepresentationAssembler.toModel(demoService.saveDemoByUuid(demo));
+        return demoRepresentationAssembler.toModel(demoService.saveDemoByUuid(demo.getUuid(), demo));
     }
 }
 
