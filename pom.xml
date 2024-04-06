@@ -9,21 +9,20 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.jda</groupId>
-    <artifactId>api-libary</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>api-libary</name>
-    <description>api-libary</description>
+    <artifactId>api-library</artifactId>
+    <version>0.0.2</version>
+    <name>api-library</name>
+    <description>api-library</description>
     <properties>
         <java.version>21</java.version>
         <springdoc.version>2.3.0</springdoc.version>
         <modelmapper.version>3.2.0</modelmapper.version>
-        <jjwt.version>0.12.5</jjwt.version>
         <jpa.version>3.2.0</jpa.version>
         <bouncycastle.version>1.77</bouncycastle.version>
-        <model.libary>0.0.1</model.libary>
         <swagger.annotations.jakarta>2.2.21</swagger.annotations.jakarta>
         <swagger.models>2.2.21</swagger.models>
         <swagger.annotations>2.2.21</swagger.annotations>
+        <model.library.version>0.0.2</model.library.version>
         <hamcrest.version>2.2</hamcrest.version>
         <springdoc.openapi-ui>1.8.0</springdoc.openapi-ui>
         <springdoc.openapi-webmvc-ui>2.1.0</springdoc.openapi-webmvc-ui>
@@ -110,12 +109,12 @@
             <artifactId>modelmapper</artifactId>
             <version>${modelmapper.version}</version>
         </dependency>
-
         <dependency>
             <groupId>dev.jda</groupId>
-            <artifactId>model-libary</artifactId>
-            <version>${model.libary}</version>
+            <artifactId>model-library</artifactId>
+            <version>${model.library.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

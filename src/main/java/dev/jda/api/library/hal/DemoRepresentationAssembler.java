@@ -1,13 +1,14 @@
-package dev.jda.apilibary.hal;
+package dev.jda.api.library.hal;
 
-import dev.jda.apilibary.controller.DemoController;
-import dev.jda.apilibary.entity.Demo;
+import dev.jda.api.library.controller.DemoController;
+import dev.jda.api.library.entity.Demo;
 
-import dev.jda.demomodellibary.DemoDTO;
+import dev.jda.model.library.DemoDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -26,7 +27,7 @@ public class DemoRepresentationAssembler implements RepresentationModelAssembler
     }
 
     private void addSelfLink(DemoDTO demoDTO) {
-        Link selfLink = linkTo(methodOn(DemoController.class).getDemoByCode(demoDTO.getCode())).withSelfRel();
+        Link selfLink = WebMvcLinkBuilder.linkTo(methodOn(DemoController.class).getDemoByCode(demoDTO.getCode())).withSelfRel();
         demoDTO.add(selfLink);
     }
 }

@@ -1,7 +1,7 @@
-package dev.jda.apilibary.service;
+package dev.jda.api.library.service;
 
-import dev.jda.apilibary.entity.Demo;
-import dev.jda.apilibary.repository.DemoRepository;
+import dev.jda.api.library.repository.DemoRepository;
+import dev.jda.api.library.entity.Demo;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

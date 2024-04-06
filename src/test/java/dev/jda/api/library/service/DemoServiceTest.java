@@ -1,7 +1,7 @@
-package dev.jda.apilibary.service;
+package dev.jda.api.library.service;
 
-import dev.jda.apilibary.entity.Demo;
-import dev.jda.apilibary.repository.DemoRepository;
+import dev.jda.api.library.entity.Demo;
+import dev.jda.api.library.repository.DemoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

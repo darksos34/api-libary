@@ -1,4 +1,4 @@
-package dev.jda.apilibary.requestmapping;
+package dev.jda.api.library.requestmapping;
 
 public class RequestPath {
     public static final String V1 = "/v1";

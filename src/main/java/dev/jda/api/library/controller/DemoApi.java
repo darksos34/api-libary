@@ -1,8 +1,8 @@
-package dev.jda.apilibary.controller;
+package dev.jda.api.library.controller;
 
-import dev.jda.apilibary.requestmapping.RequestPath;
+import dev.jda.api.library.requestmapping.RequestPath;
 
-import dev.jda.demomodellibary.DemoDTO;
+import dev.jda.model.library.DemoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

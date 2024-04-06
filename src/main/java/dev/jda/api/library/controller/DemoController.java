@@ -1,11 +1,11 @@
-package dev.jda.apilibary.controller;
+package dev.jda.api.library.controller;
 
-import dev.jda.apilibary.hal.DemoRepresentationAssembler;
-import dev.jda.apilibary.entity.Demo;
-import dev.jda.apilibary.service.DemoService;
+import dev.jda.api.library.hal.DemoRepresentationAssembler;
+import dev.jda.api.library.entity.Demo;
+import dev.jda.api.library.service.DemoService;
 
 
-import dev.jda.demomodellibary.DemoDTO;
+import dev.jda.model.library.DemoDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -33,7 +33,7 @@ public class DemoController implements DemoApi {
         }
         return pagedResourcesAssembler.toModel(demoPage, demoRepresentationAssembler);
     }
-
+// dependency
     @Override
     public DemoDTO getDemoByCode(String code) {
         return demoRepresentationAssembler.toModel(demoService.getDemoByCode(code));

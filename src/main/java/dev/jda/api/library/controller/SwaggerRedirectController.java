@@ -1,4 +1,4 @@
-package dev.jda.apilibary.controller;
+package dev.jda.api.library.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

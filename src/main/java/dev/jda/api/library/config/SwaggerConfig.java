@@ -1,4 +1,4 @@
-package dev.jda.apilibary.config;
+package dev.jda.api.library.config;
 
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;
