@@ -25,6 +25,9 @@
         <model.library.version>0.0.2</model.library.version>
         <hamcrest.version>2.2</hamcrest.version>
         <springdoc.openapi-ui>1.8.0</springdoc.openapi-ui>
+        <springdoc.openapi-.webmvc.core>1.8.0</springdoc.openapi-.webmvc.core>
+        <springdoc.openapi.webflux.ui>1.8.0</springdoc.openapi.webflux.ui>
+        <springdoc.openapi-webmvc-ui>2.1.0</springdoc.openapi-webmvc-ui>
     </properties>
 
     <dependencies>
@@ -75,7 +78,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -97,6 +99,21 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${springdoc.openapi-ui}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.openapi-webmvc-ui}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webmvc-core</artifactId>
+            <version>${springdoc.openapi-.webmvc.core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+           <version>${springdoc.openapi.webflux.ui}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.modelmapper</groupId>
@@ -108,7 +125,6 @@
             <artifactId>model-library</artifactId>
             <version>${model.library.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
