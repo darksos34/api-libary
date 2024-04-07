@@ -15,19 +15,15 @@
     <description>api-library</description>
     <properties>
         <java.version>21</java.version>
-        <springdoc.version>2.3.0</springdoc.version>
         <modelmapper.version>3.2.0</modelmapper.version>
         <jpa.version>3.2.0</jpa.version>
-        <bouncycastle.version>1.77</bouncycastle.version>
-        <swagger.annotations.jakarta>2.2.21</swagger.annotations.jakarta>
-        <swagger.models>2.2.21</swagger.models>
-        <swagger.annotations>2.2.21</swagger.annotations>
-        <model.library.version>0.0.2</model.library.version>
+
         <hamcrest.version>2.2</hamcrest.version>
         <springdoc.openapi-ui>1.8.0</springdoc.openapi-ui>
-        <springdoc.openapi-.webmvc.core>1.8.0</springdoc.openapi-.webmvc.core>
-        <springdoc.openapi.webflux.ui>1.8.0</springdoc.openapi.webflux.ui>
-        <springdoc.openapi-webmvc-ui>2.1.0</springdoc.openapi-webmvc-ui>
+        <springdoc-openapi-starter-webflux-api>2.5.0</springdoc-openapi-starter-webflux-api>
+        <springdoc-openapi-starter-webmvc-ui>2.5.0</springdoc-openapi-starter-webmvc-ui>
+        <springdoc.openapi.starter.webmvc.api>2.5.0</springdoc.openapi.starter.webmvc.api>
+        <model.library.version>0.0.2</model.library.version>
     </properties>
 
     <dependencies>
@@ -78,53 +74,41 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://springdoc.org/ -->
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>${swagger.annotations}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-api</artifactId>
+            <version>${springdoc-openapi-starter-webflux-api}</version>
         </dependency>
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>${swagger.models}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-starter-webmvc-ui}</version>
         </dependency>
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations-jakarta</artifactId>
-            <version>${swagger.annotations.jakarta}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+            <version>${springdoc.openapi.starter.webmvc.api}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${springdoc.openapi-ui}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc.openapi-webmvc-ui}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webmvc-core</artifactId>
-            <version>${springdoc.openapi-.webmvc.core}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webflux-ui</artifactId>
-           <version>${springdoc.openapi.webflux.ui}</version>
-        </dependency>
 
+        <!--    https://modelmapper.org/getting-started/    -->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>${modelmapper.version}</version>
         </dependency>
+
         <dependency>
             <groupId>dev.jda</groupId>
             <artifactId>model-library</artifactId>
             <version>${model.library.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
