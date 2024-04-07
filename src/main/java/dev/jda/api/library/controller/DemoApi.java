@@ -49,7 +49,6 @@ public interface DemoApi {
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Bestaande demo bijwerken.")
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
-
     //@PreAuthorize("hasAuthority('admin:READ)")
     @ResponseStatus(HttpStatus.OK)
     DemoDTO patchDemoByUuid(@RequestParam(value = "uuid") String uuid,

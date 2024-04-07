@@ -40,7 +40,7 @@ public class DemoService {
         Optional.ofNullable(demo.getName()).ifPresent(existingDemo::setName);
         Optional.ofNullable(demo.getUuid()).ifPresent(existingDemo::setUuid);
 
-        demoRepository.save(existingDemo);
-        return existingDemo;
+        return demoRepository.save(existingDemo);
+
     }
 }

@@ -33,7 +33,7 @@ public class DemoController implements DemoApi {
         }
         return pagedResourcesAssembler.toModel(demoPage, demoRepresentationAssembler);
     }
-// dependency
+
     @Override
     public DemoDTO getDemoByCode(String code) {
         return demoRepresentationAssembler.toModel(demoService.getDemoByCode(code));
