@@ -13,4 +13,5 @@ public interface DemoRepository extends JpaRepository<Demo, String> {
 
     boolean existsByCode(String code);
 
+    Optional<Demo> findByUuid(String uuid);
 }

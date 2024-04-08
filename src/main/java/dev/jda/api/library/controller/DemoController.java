@@ -28,7 +28,7 @@ public class DemoController implements DemoApi {
     public PagedModel<DemoDTO> getAllDemosPageable(Pageable pageable) {
         Page<Demo> demoPage =  demoService.getAllDemosPageable(pageable);
         if(!demoPage.isEmpty()) {
-         return (PagedModel<DemoDTO>) pagedResourcesAssembler.toEmptyModel(demoPage, DemoDTO.class);
+            return (PagedModel<DemoDTO>) pagedResourcesAssembler.toEmptyModel(demoPage, DemoDTO.class);
         }
         return pagedResourcesAssembler.toModel(demoPage, demoRepresentationAssembler);
     }
@@ -46,11 +46,9 @@ public class DemoController implements DemoApi {
 
     @Override
     public DemoDTO patchDemoByUuid(String uuid, DemoDTO demoDTO) {
-        if (uuid == null) {
-            throw new IllegalArgumentException("UUID must not be null");
-        }
         Demo demo = modelMapper.map(demoDTO, Demo.class);
-        return demoRepresentationAssembler.toModel(demoService.saveDemoByUuid(demo.getUuid(), demo));
+        return demoRepresentationAssembler.toModel(demoService.saveDemoByUuid(uuid, demo));
+
     }
 }
 

@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DemoService {
-
     private static final String DEMO_NOTFOUND = "Kon de demo niet vinden op basis van UUID";
     private final DemoRepository demoRepository;
 
@@ -34,7 +33,7 @@ public class DemoService {
     }
 
     public Demo saveDemoByUuid(String uuid, Demo demo) {
-        Demo existingDemo = demoRepository.findById(uuid).orElseThrow(() -> new EntityNotFoundException(DEMO_NOTFOUND));
+        Demo existingDemo = demoRepository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DEMO_NOTFOUND)));
 
         Optional.ofNullable(demo.getCode()).ifPresent(existingDemo::setCode);
         Optional.ofNullable(demo.getName()).ifPresent(existingDemo::setName);
