@@ -32,7 +32,7 @@ Spring Boot simplifies building RESTful APIs by providing a framework for handli
 
 Go to [Spring](start.spring.io) and create a new Spring Boot project.
 
-![01-start-spring-io](https://github.com/darksos34/api-library/blob/master/src/main/resources/images/spring.initializr.png))
+![01-start-spring-io](https://github.com/darksos34/api-library/blob/master/src/main/resources/images/sping.initializr.png))
 
 Add additional dependencies:
 - Springdoc - OpenApi Swagger UI: A library that provides a user interface for viewing API documentation.
