@@ -17,7 +17,6 @@
         <java.version>21</java.version>
         <modelmapper.version>3.2.0</modelmapper.version>
         <jpa.version>3.2.0</jpa.version>
-
         <hamcrest.version>2.2</hamcrest.version>
         <springdoc.openapi-ui>1.8.0</springdoc.openapi-ui>
         <springdoc-openapi-starter-webflux-api>2.5.0</springdoc-openapi-starter-webflux-api>
@@ -31,6 +30,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -67,14 +67,12 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>${hamcrest.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- https://springdoc.org/ -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.openapi-ui}</version>
+        </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webflux-api</artifactId>
@@ -89,11 +87,6 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
             <version>${springdoc.openapi.starter.webmvc.api}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${springdoc.openapi-ui}</version>
         </dependency>
 
         <!--    https://modelmapper.org/getting-started/    -->
