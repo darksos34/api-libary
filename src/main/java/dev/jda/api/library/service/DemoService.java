@@ -22,15 +22,15 @@ public class DemoService {
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Demo met code '%s' is niet gevonden", code)));
     }
 
+    public Page<Demo> getAllDemosPageable(Pageable pageable) {
+        return demoRepository.findAll(pageable);
+    }
+
     public Demo saveDemo(Demo demo) {
         if (demoRepository.existsByCode(demo.getCode())) {
             throw new DemoCodeExistsException(demo.getCode());
         }
         return demoRepository.save(demo);
-    }
-
-    public Page<Demo> getAllDemosPageable(Pageable pageable) {
-        return demoRepository.findAll(pageable);
     }
 
     public Demo saveDemoByUuid(String uuid, Demo demo) {

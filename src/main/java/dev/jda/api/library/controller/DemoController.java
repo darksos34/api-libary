@@ -24,6 +24,11 @@ public class DemoController implements DemoApi {
     private final PagedResourcesAssembler<Demo> pagedResourcesAssembler;
 
     @Override
+    public DemoDTO getDemoByCode(String code) {
+        return demoRepresentationAssembler.toModel(demoService.getDemoByCode(code));
+    }
+
+    @Override
     @SuppressWarnings (value="unchecked")
     public PagedModel<DemoDTO> getAllDemosPageable(Pageable pageable) {
         Page<Demo> demoPage =  demoService.getAllDemosPageable(pageable);
@@ -31,11 +36,6 @@ public class DemoController implements DemoApi {
             return (PagedModel<DemoDTO>) pagedResourcesAssembler.toEmptyModel(demoPage, DemoDTO.class);
         }
         return pagedResourcesAssembler.toModel(demoPage, demoRepresentationAssembler);
-    }
-
-    @Override
-    public DemoDTO getDemoByCode(String code) {
-        return demoRepresentationAssembler.toModel(demoService.getDemoByCode(code));
     }
 
     @Override

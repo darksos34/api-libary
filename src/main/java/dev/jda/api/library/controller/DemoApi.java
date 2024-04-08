@@ -27,23 +27,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(RequestPath.V1 + RequestPath.DEMO)
 public interface DemoApi {
 
+    @GetMapping("/{code}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @Operation(summary = "Demo weergeven op basis van code.")
+    DemoDTO getDemoByCode(@PathVariable(value = "code")
+                          @Parameter(example = "ABCD", description = "test") String code);
+
     @GetMapping()
     @Operation(summary = "Lijst weergeven met alle demos als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
     PagedModel<?> getAllDemosPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 
-    @GetMapping("/{code}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    @Operation(summary = "")
-    DemoDTO getDemoByCode(@PathVariable(value = "code")
-                          @Parameter(example = "ABCD", description = "test") String code);
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation
-    @ResponseBody()
+    //@PreAuthorize("hasAuthority('admin:READ)")
+    @Operation(summary = "Nieuwe demo aanmaken.")
+    @ResponseBody
     DemoDTO createDemo(@Valid @RequestBody DemoDTO demoDTO);
 
     @PatchMapping(path = "/{id}")

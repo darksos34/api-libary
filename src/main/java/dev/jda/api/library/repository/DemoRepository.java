@@ -10,8 +10,7 @@ import java.util.Optional;
 public interface DemoRepository extends JpaRepository<Demo, String> {
 
     Optional<Demo> findByCode(String code);
-
+    Optional<Demo> findByUuid(String uuid);
     boolean existsByCode(String code);
 
-    Optional<Demo> findByUuid(String uuid);
 }
