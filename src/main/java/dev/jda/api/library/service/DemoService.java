@@ -1,5 +1,6 @@
 package dev.jda.api.library.service;
 
+import dev.jda.api.library.exception.GlobalExceptionHandler.DemoCodeExistsException;
 import dev.jda.api.library.repository.DemoRepository;
 import dev.jda.api.library.entity.Demo;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,7 +24,7 @@ public class DemoService {
 
     public Demo saveDemo(Demo demo) {
         if (demoRepository.existsByCode(demo.getCode())) {
-            throw new RuntimeException(String.format("Code '%s' bestaat al.", demo.getCode()));
+            throw new DemoCodeExistsException(demo.getCode());
         }
         return demoRepository.save(demo);
     }

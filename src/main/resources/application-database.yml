@@ -14,7 +14,7 @@ spring:
   jpa:
     hibernate:
       # change to 'update' if you want data to remain in db
-      ddl-auto: none
+      ddl-auto: update
     show-sql: false
     #    show-sql: true
     properties:

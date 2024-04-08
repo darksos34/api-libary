@@ -1,8 +1,8 @@
 package dev.jda.api.library.controller;
 
 import dev.jda.api.library.config.ModelMapperConfiguration;
-import dev.jda.api.library.hal.DemoRepresentationAssembler;
 import dev.jda.api.library.entity.Demo;
+import dev.jda.api.library.hal.DemoRepresentationAssembler;
 import dev.jda.api.library.repository.DemoRepository;
 import dev.jda.api.library.service.DemoService;
 import lombok.Getter;
@@ -45,7 +45,7 @@ class DemoControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void getDemoByCode() throws Exception {
+    void testGetDemoByCode() throws Exception {
         when(demoService.getDemoByCode(anyString())).thenReturn(createDemo());
 
         mockMvc.perform(get("/v1/demo/1").accept(MediaType.APPLICATION_JSON))
