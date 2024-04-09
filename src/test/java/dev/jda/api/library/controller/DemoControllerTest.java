@@ -5,6 +5,7 @@ import dev.jda.api.library.entity.Demo;
 import dev.jda.api.library.hal.DemoRepresentationAssembler;
 import dev.jda.api.library.repository.DemoRepository;
 import dev.jda.api.library.service.DemoService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,15 @@ class DemoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code", is("1234")))
                 .andExpect(jsonPath("$.name", is("henk")));
+
+    }
+
+    @Test
+    void testGetDemoByCode_NotFound() throws Exception {
+        when(demoService.getDemoByCode(anyString())).thenThrow(new EntityNotFoundException("Demo met code '1' is niet gevonden"));
+
+        mockMvc.perform(get("/v1/demo/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     private Demo createDemo(){

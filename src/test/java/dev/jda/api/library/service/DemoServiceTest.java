@@ -135,6 +135,17 @@ class DemoServiceTest {
         assertEquals(existingDemo.getName(), result.getName());
         assertEquals(existingDemo.getUuid(), result.getUuid());
     }
+    @Test
+    void shouldDeleteDemoWhenUuidExists() {
+        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
+        Demo demo = createDemo();
+
+        when(demoRepository.findByUuid(uuid)).thenReturn(Optional.of(demo));
+
+        unitToTest.deleteDemoByUuid(uuid);
+
+        verify(demoRepository).delete(demo);
+    }
 
     private Demo createDemo(){
         return Demo.builder()
