@@ -74,7 +74,18 @@ Add additional dependencies:
         </dependency>
 ````
 
+### Create GET endpoint 
 
+```` 
+
+    @GetMapping("/{code}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @Operation(summary = "Demo weergeven op basis van code.")
+    DemoDTO getDemoByCode(@PathVariable(value = "code")
+                          @Parameter(example = "ABCD", description = "test") String code);
+
+````
 
 ## Let's Stay Connected
 

@@ -1,7 +1,6 @@
 package dev.jda.api.library.controller;
 
 import dev.jda.api.library.requestmapping.RequestPath;
-
 import dev.jda.model.library.DemoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,6 +12,7 @@ import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,4 +55,6 @@ public interface DemoApi {
     DemoDTO patchDemoByUuid(@RequestParam(value = "uuid") String uuid,
                             @RequestBody DemoDTO demoDTO);
 
+    @DeleteMapping(path = "/{id}")
+    void deleteDemoByUuid(@PathVariable(value = "id") String uuid);
 }

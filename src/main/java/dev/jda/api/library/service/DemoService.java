@@ -41,6 +41,11 @@ public class DemoService {
         Optional.ofNullable(demo.getUuid()).ifPresent(existingDemo::setUuid);
 
         return demoRepository.save(existingDemo);
+    }
 
+    public void deleteDemoByUuid(String uuid) {
+      Demo demo = demoRepository.findByUuid(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Demo with UUID '" + uuid + "' not found"));
+        demoRepository.delete(demo);
     }
 }

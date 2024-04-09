@@ -50,6 +50,11 @@ public class DemoController implements DemoApi {
         return demoRepresentationAssembler.toModel(demoService.saveDemoByUuid(uuid, demo));
 
     }
+
+    @Override
+    public void deleteDemoByUuid(String uuid) {
+        demoService.deleteDemoByUuid(uuid);
+    }
 }
 
 
