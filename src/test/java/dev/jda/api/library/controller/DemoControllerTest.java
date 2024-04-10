@@ -19,8 +19,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,8 +70,31 @@ class DemoControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void testDeleteDemoByCode() {
+
+        doNothing().when(demoService).deleteDemoByUuid(createDemo().getUuid());
+
+        assertDoesNotThrow(() -> mockMvc.perform(delete("/v1/demo/" + createDemo().getUuid())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent()));
+
+        verify(demoService, times(1)).deleteDemoByUuid(createDemo().getUuid());
+    }
+    @Test
+    void shouldThrowExceptionWhenUuidDoesNotExist() throws Exception {
+
+        doThrow(new EntityNotFoundException()).when(demoService).deleteDemoByUuid(createDemo().getUuid());
+
+        mockMvc.perform(delete("/v1/demo/" +  createDemo().getUuid())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(demoService, times(1)).deleteDemoByUuid(createDemo().getUuid());
+    }
     private Demo createDemo(){
         return Demo.builder()
+                .uuid("f3as5jj-8819-9952-b3ds-l0os8iwwejsa")
                 .code("1234")
                 .name("henk")
                 .build();
