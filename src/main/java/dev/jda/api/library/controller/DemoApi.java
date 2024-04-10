@@ -27,19 +27,31 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(RequestPath.V1 + RequestPath.DEMO)
 public interface DemoApi {
 
+    /**
+     * @param code of the demo to be displayed.
+     * @return  DemoDTO with the values of the demo.
+     */
     @GetMapping("/{code}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @Operation(summary = "Demo weergeven op basis van code.")
     DemoDTO getDemoByCode(@PathVariable(value = "code")
-                          @Parameter(example = "ABCD", description = "test") String code);
+                          @Parameter(example = "ABCD", description = "Filter DEMO code") String code);
 
+    /**
+     * @param pageable Paging parameters.
+     * @return  Pageable list with all demos.
+     */
     @GetMapping()
     @Operation(summary = "Lijst weergeven met alle demos als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
     PagedModel<?> getAllDemosPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 
+    /**
+     * @param demoDTO with the values to be created.
+     * @return  DemoDTO with the created values.
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('admin:READ)")
@@ -47,6 +59,11 @@ public interface DemoApi {
     @ResponseBody
     DemoDTO createDemo(@Valid @RequestBody DemoDTO demoDTO);
 
+    /**
+     * @param uuid   Patch Product and filter based on UUID to be updated.
+     * @param demoDTO   DemoDTO with the new values.
+     * @return  DemoDTO with the updated values.
+     */
     @PatchMapping(path = "/{id}")
     @Operation(summary = "Bestaande demo bijwerken.")
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
@@ -55,6 +72,13 @@ public interface DemoApi {
     DemoDTO patchDemoByUuid(@RequestParam(value = "uuid") String uuid,
                             @RequestBody DemoDTO demoDTO);
 
-    @DeleteMapping(path = "/{id}")
-    void deleteDemoByUuid(@PathVariable(value = "id") String uuid);
+    /**
+     * Filter on UUID and delete the demo.
+     *
+     * @param uuid of the demo to be deleted.
+     */
+    @DeleteMapping(path = "/{uuid}")
+    @Operation(summary = "Demo verwijderen op basis van UUID.")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteDemoByUuid(@PathVariable(value = "uuid")    @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
 }

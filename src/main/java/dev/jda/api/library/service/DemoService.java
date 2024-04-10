@@ -45,7 +45,7 @@ public class DemoService {
 
     public void deleteDemoByUuid(String uuid) {
       Demo demo = demoRepository.findByUuid(uuid)
-                .orElseThrow(() -> new EntityNotFoundException("Demo with UUID '" + uuid + "' not found"));
+                .orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DEMO_NOTFOUND)));
         demoRepository.delete(demo);
     }
 }
