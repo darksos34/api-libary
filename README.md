@@ -4,7 +4,7 @@
 
 <b>Author:</b> <a href="https://github.com/darksos34" target="_blank">Jordy Hamwijk</a><br>
 <b>Created:</b> 2024-04-05<br>
-<b>Last updated:</b> 2024-04-13
+<b>Last updated:</b> 2024-04-14
 
 [![](https://img.shields.io/badge/Spring%20Boot-8A2BE2)]() [![](https://img.shields.io/badge/release-Apr%2004,%202024-blue)]() [![](https://img.shields.io/badge/version-3.2.4-blue)]()
 
@@ -39,7 +39,7 @@ Add additional dependencies:
 - OpenApi webflux: A library that simplifies API documentation for reactive applications.
 - OpenApi webmvc - UI: A library that provides a user interface for viewing API documentation.
 - OpenApi webmvc - API Docs: A library that provides API documentation for Spring WebMVC applications.
-````    
+````    xml
         <!-- https://springdoc.org/ -->
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -65,7 +65,7 @@ Add additional dependencies:
 
 ### ModelMapper: A library that simplifies object mapping. 
 
-```` 
+```` xml
         <!--    https://modelmapper.org/getting-started/    -->
         <dependency>
             <groupId>org.modelmapper</groupId>
@@ -76,7 +76,12 @@ Add additional dependencies:
 
 ### Create GET endpoint 
 
-```` 
+
+```java
+
+@Tag(name = "DM", description = "Demo applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
+public interface DemoApi {
 
     @GetMapping("/{code}")
     @ResponseStatus(HttpStatus.OK)
@@ -85,7 +90,47 @@ Add additional dependencies:
     DemoDTO getDemoByCode(@PathVariable(value = "code")
                           @Parameter(example = "ABCD", description = "test") String code);
 
-````
+
+}
+
+```
+
+
+### Create A Pageable GET endpoint to retrieve a list of Demo's
+* @Parameter = swagger list on the web browser
+
+```java
+@Tag(name = "DM", description = "Demo applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
+public interface DemoApi {
+
+    @GetMapping()
+    @Operation(summary = "Lijst weergeven met alle demos als paging.")
+    @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
+    @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
+    PagedModel<?> getAllDemosPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
+}
+
+```
+
+### Create A POST endpoint to create a new demo
+```java
+@Tag(name = "DM", description = "Demo applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
+public interface DemoApi {
+
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    //@PreAuthorize("hasAuthority('admin:READ)")
+    @Operation(summary = "Nieuwe demo aanmaken.")
+    @ResponseBody
+    DemoDTO createDemo(@Valid @RequestBody DemoDTO demoDTO);
+
+
+}
+```
+
 
 ## Let's Stay Connected
 
