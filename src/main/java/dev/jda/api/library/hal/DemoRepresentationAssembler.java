@@ -11,6 +11,7 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Component
 @RequiredArgsConstructor
 public class DemoRepresentationAssembler implements RepresentationModelAssembler<Demo, DemoDTO> {

@@ -85,7 +85,7 @@ class DemoServiceTest {
 
         when(demoRepository.findByUuid(uuid)).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> unitToTest.saveDemoByUuid(uuid, newDemo));
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.patchDemoByUuid(uuid, newDemo));
     }
 
     @Test
@@ -103,7 +103,7 @@ class DemoServiceTest {
 
         ArgumentCaptor<Demo> demoCaptor = ArgumentCaptor.forClass(Demo.class);
 
-        Demo result = unitToTest.saveDemoByUuid(uuid, newDemo);
+        Demo result = unitToTest.patchDemoByUuid(uuid, newDemo);
 
         verify(demoRepository).save(demoCaptor.capture());
         Demo capturedDemo = demoCaptor.getValue();
@@ -129,7 +129,7 @@ class DemoServiceTest {
         when(demoRepository.findByUuid(uuid)).thenReturn(Optional.of(existingDemo));
         when(demoRepository.save(any(Demo.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        Demo result = unitToTest.saveDemoByUuid(uuid, newDemo);
+        Demo result = unitToTest.patchDemoByUuid(uuid, newDemo);
 
         assertEquals(existingDemo.getCode(), result.getCode());
         assertEquals(existingDemo.getName(), result.getName());

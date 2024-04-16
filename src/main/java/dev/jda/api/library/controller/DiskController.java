@@ -1,18 +1,23 @@
 package dev.jda.api.library.controller;
 
+import dev.jda.api.library.entity.Demo;
+import dev.jda.api.library.entity.Disk;
+import dev.jda.api.library.hal.DiskRepresentationAssembler;
 import dev.jda.api.library.service.DiskService;
 import dev.jda.model.library.DiskDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class DiskController implements DiskApi{
+public class DiskController implements DiskApi {
 
     private final DiskService diskService;
     private final ModelMapper modelMapper;
-
+    private final DiskRepresentationAssembler diskRepresentationAssembler;
+    private final PagedResourcesAssembler<Demo> pagedResourcesAssembler;
 
     @Override
     public void createDisk() {
@@ -26,6 +31,7 @@ public class DiskController implements DiskApi{
 
     @Override
     public DiskDTO patchDiskByUuid(String uuid, DiskDTO diskDTO) {
-        return  modelMapper.map(diskService.patchDisk(uuid, diskDTO), DiskDTO.class);
+        Disk disk = modelMapper.map(diskDTO, Disk.class);
+        return diskRepresentationAssembler.toModel(diskService.patchDiskByUuid(uuid, disk));
     }
 }

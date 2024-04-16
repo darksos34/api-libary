@@ -61,7 +61,7 @@ public class DemoService {
      * @return  the updated demo
      * @throws EntityNotFoundException if the demo is not found
      */
-    public Demo saveDemoByUuid(String uuid, Demo demo) {
+    public Demo patchDemoByUuid(String uuid, Demo demo) {
         Demo existingDemo = demoRepository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DEMO_NOTFOUND)));
 
         Optional.ofNullable(demo.getCode()).ifPresent(existingDemo::setCode);

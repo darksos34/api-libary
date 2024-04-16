@@ -47,7 +47,7 @@ public class DemoController implements DemoApi {
     @Override
     public DemoDTO patchDemoByUuid(String uuid, DemoDTO demoDTO) {
         Demo demo = modelMapper.map(demoDTO, Demo.class);
-        return demoRepresentationAssembler.toModel(demoService.saveDemoByUuid(uuid, demo));
+        return demoRepresentationAssembler.toModel(demoService.patchDemoByUuid(uuid, demo));
 
     }
 
