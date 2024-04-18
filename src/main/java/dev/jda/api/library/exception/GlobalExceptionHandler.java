@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    public static class DemoCodeExistsException extends RuntimeException {
-        public DemoCodeExistsException(String code) {
-            super(String.format("Demo with code '%s' already exists.", code));
+    public static class DriveCodeExistsException extends RuntimeException {
+        public DriveCodeExistsException(String code) {
+            super(String.format("Drive with code '%s' already exists.", code));
         }
     }
     @ExceptionHandler(EntityNotFoundException.class)

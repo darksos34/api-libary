@@ -1,7 +1,7 @@
 package dev.jda.api.library.controller;
 
 import dev.jda.api.library.requestmapping.RequestPath;
-import dev.jda.model.library.DemoDTO;
+import dev.jda.model.library.DriveDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -23,62 +23,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Tag(name = "DM", description = "Demo applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
-public interface DemoApi {
+@Tag(name = "DM", description = "Drive applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
+public interface DriveApi {
 
     /**
-     * @param code of the demo to be displayed.
-     * @return  DemoDTO with the values of the demo.
+     * @param code of the drive to be displayed.
+     * @return  DriveDTO with the values of the drive.
      */
     @GetMapping("/{code}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @Operation(summary = "Demo weergeven op basis van code.")
-    DemoDTO getDemoByCode(@PathVariable(value = "code")
-                          @Parameter(example = "ABCD", description = "Filter DEMO code") String code);
+    @Operation(summary = "Drive weergeven op basis van code.")
+    DriveDTO getDriveByCode(@PathVariable(value = "code")
+                          @Parameter(example = "ABCD", description = "Filter DRIVE code") String code);
 
     /**
      * @param pageable Paging parameters.
-     * @return  Pageable list with all demos.
+     * @return  Pageable list with all drives.
      */
     @GetMapping()
-    @Operation(summary = "Lijst weergeven met alle demos als paging.")
+    @Operation(summary = "Lijst weergeven met alle drives als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
-    PagedModel<?> getAllDemosPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
+    PagedModel<?> getAllDriversPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 
     /**
-     * @param demoDTO with the values to be created.
-     * @return  DemoDTO with the created values.
+     * @param driveDTO with the values to be created.
+     * @return  DriveDTO with the created values.
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('admin:READ)")
-    @Operation(summary = "Nieuwe demo aanmaken.")
+    @Operation(summary = "Nieuwe drive aanmaken.")
     @ResponseBody
-    DemoDTO createDemo(@Valid @RequestBody DemoDTO demoDTO);
+    DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO);
 
     /**
-     * @param uuid   Patch Product and filter based on UUID to be updated.
-     * @param demoDTO   DemoDTO with the new values.
-     * @return  DemoDTO with the updated values.
+     * @param uuid   Patch Drive and filter based on UUID to be updated.
+     * @param driveDTO   DriveDTO with the new values.
+     * @return  DriveDTO with the updated values.
      */
     @PatchMapping(path = "/{id}")
-    @Operation(summary = "Bestaande demo bijwerken.")
+    @Operation(summary = "Bestaande drive bijwerken.")
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
     //@PreAuthorize("hasAuthority('admin:READ)")
     @ResponseStatus(HttpStatus.OK)
-    DemoDTO patchDemoByUuid(@RequestParam(value = "uuid") String uuid,
-                            @RequestBody DemoDTO demoDTO);
+    DriveDTO patchDriveByUuid(@RequestParam(value = "uuid") String uuid,
+                              @RequestBody DriveDTO driveDTO);
 
     /**
-     * Filter on UUID and delete the demo.
+     * Filter on UUID and delete the drive.
      *
-     * @param uuid of the demo to be deleted.
+     * @param uuid of the drive to be deleted.
      */
     @DeleteMapping(path = "/{uuid}")
-    @Operation(summary = "Demo verwijderen op basis van UUID.")
+    @Operation(summary = "Drive verwijderen op basis van UUID.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteDemoByUuid(@PathVariable(value = "uuid")    @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
+    void deleteDriveByUuid(@PathVariable(value = "uuid")    @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
 }

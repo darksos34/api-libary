@@ -1,10 +1,10 @@
 package dev.jda.api.library.controller;
 
 import dev.jda.api.library.config.ModelMapperConfiguration;
-import dev.jda.api.library.entity.Demo;
-import dev.jda.api.library.hal.DemoRepresentationAssembler;
-import dev.jda.api.library.repository.DemoRepository;
-import dev.jda.api.library.service.DemoService;
+import dev.jda.api.library.entity.Drive;
+import dev.jda.api.library.hal.DriveRepresentationAssembler;
+import dev.jda.api.library.repository.DriveRepository;
+import dev.jda.api.library.service.DriveService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,30 +32,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(DemoController.class)
+@WebMvcTest(DriveController.class)
 @Import({
-        DemoService.class, ModelMapperConfiguration.class, DemoRepresentationAssembler.class
+        DriveService.class, ModelMapperConfiguration.class, DriveRepresentationAssembler.class
 })
-class DemoControllerTest {
+class DriveControllerTest {
 
-    public static final String DEMO_JSON = "{\"code\":\"1234\", \"name\":\"henk\"}";
+    public static final String DRIVE_JSON = "{\"code\":\"1234\", \"name\":\"henk\"}";
 
     @Getter
     @Setter
     @MockBean
-    private DemoRepository demoRepository;
+    private DriveRepository driveRepository;
 
     @MockBean
-    private DemoService demoService;
+    private DriveService driveService;
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void testGetDemoByCode() throws Exception {
-        when(demoService.getDemoByCode(anyString())).thenReturn(createDemo());
+    void testGetDriveByCode() throws Exception {
+        when(driveService.getDriveByCode(anyString())).thenReturn(createDrive());
 
-        mockMvc.perform(get("/v1/demo/1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/drive/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code", is("1234")))
                 .andExpect(jsonPath("$.name", is("henk")));
@@ -63,37 +63,37 @@ class DemoControllerTest {
     }
 
     @Test
-    void testGetDemoByCode_NotFound() throws Exception {
-        when(demoService.getDemoByCode(anyString())).thenThrow(new EntityNotFoundException("Demo met code '1' is niet gevonden"));
+    void testGetDriveByCode_NotFound() throws Exception {
+        when(driveService.getDriveByCode(anyString())).thenThrow(new EntityNotFoundException("Drive met code '1' is niet gevonden"));
 
-        mockMvc.perform(get("/v1/demo/1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/drive/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void testDeleteDemoByCode() {
+    void testDeleteDriveByCode() {
 
-        doNothing().when(demoService).deleteDemoByUuid(createDemo().getUuid());
+        doNothing().when(driveService).deleteDriveByUuid(createDrive().getUuid());
 
-        assertDoesNotThrow(() -> mockMvc.perform(delete("/v1/demo/" + createDemo().getUuid())
+        assertDoesNotThrow(() -> mockMvc.perform(delete("/v1/drive/" + createDrive().getUuid())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent()));
 
-        verify(demoService, times(1)).deleteDemoByUuid(createDemo().getUuid());
+        verify(driveService, times(1)).deleteDriveByUuid(createDrive().getUuid());
     }
     @Test
     void shouldThrowExceptionWhenUuidDoesNotExist() throws Exception {
 
-        doThrow(new EntityNotFoundException()).when(demoService).deleteDemoByUuid(createDemo().getUuid());
+        doThrow(new EntityNotFoundException()).when(driveService).deleteDriveByUuid(createDrive().getUuid());
 
-        mockMvc.perform(delete("/v1/demo/" +  createDemo().getUuid())
+        mockMvc.perform(delete("/v1/drive/" +  createDrive().getUuid())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        verify(demoService, times(1)).deleteDemoByUuid(createDemo().getUuid());
+        verify(driveService, times(1)).deleteDriveByUuid(createDrive().getUuid());
     }
-    private Demo createDemo(){
-        return Demo.builder()
+    private Drive createDrive(){
+        return Drive.builder()
                 .uuid("f3as5jj-8819-9952-b3ds-l0os8iwwejsa")
                 .code("1234")
                 .name("henk")

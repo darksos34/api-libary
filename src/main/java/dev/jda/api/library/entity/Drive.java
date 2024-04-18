@@ -17,8 +17,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "demos")
-public class Demo {
+@Table(name = "driver")
+public class Drive {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)

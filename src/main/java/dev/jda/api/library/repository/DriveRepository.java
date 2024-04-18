@@ -1,16 +1,16 @@
 package dev.jda.api.library.repository;
 
-import dev.jda.api.library.entity.Demo;
+import dev.jda.api.library.entity.Drive;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface DemoRepository extends JpaRepository<Demo, String> {
+public interface DriveRepository extends JpaRepository<Drive, String> {
 
-    Optional<Demo> findByCode(String code);
-    Optional<Demo> findByUuid(String uuid);
+    Optional<Drive> findByCode(String code);
+    Optional<Drive> findByUuid(String uuid);
     boolean existsByCode(String code);
 
 }
