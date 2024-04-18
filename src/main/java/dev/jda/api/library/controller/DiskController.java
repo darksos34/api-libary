@@ -1,6 +1,6 @@
 package dev.jda.api.library.controller;
 
-import dev.jda.api.library.entity.Demo;
+import dev.jda.api.library.entity.Drive;
 import dev.jda.api.library.entity.Disk;
 import dev.jda.api.library.hal.DiskRepresentationAssembler;
 import dev.jda.api.library.service.DiskService;
@@ -17,7 +17,7 @@ public class DiskController implements DiskApi {
     private final DiskService diskService;
     private final ModelMapper modelMapper;
     private final DiskRepresentationAssembler diskRepresentationAssembler;
-    private final PagedResourcesAssembler<Demo> pagedResourcesAssembler;
+    private final PagedResourcesAssembler<Drive> pagedResourcesAssembler;
 
     @Override
     public void createDisk() {

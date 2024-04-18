@@ -40,8 +40,8 @@ public class Disk {
     @Column(length = 15, nullable = false)
     private String type;
 
-    @OneToMany(mappedBy = "disk",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Demo> demos;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Drive> drives;
 
     @PrePersist
     public void prePersist(){

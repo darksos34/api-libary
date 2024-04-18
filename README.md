@@ -4,7 +4,7 @@
 
 <b>Author:</b> <a href="https://github.com/darksos34" target="_blank">Jordy Hamwijk</a><br>
 <b>Created:</b> 2024-04-05<br>
-<b>Last updated:</b> 2024-04-17<br>
+<b>Last updated:</b> 2024-04-18<br>
 
 [![](https://img.shields.io/badge/Spring%20Boot-8A2BE2)]() [![](https://img.shields.io/badge/release-Apr%2004,%202024-blue)]() [![](https://img.shields.io/badge/version-3.2.4-blue)]()
 
@@ -79,15 +79,15 @@ Add additional dependencies:
 
 ```java
 
-@Tag(name = "DM", description = "Demo applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
-public interface DemoApi {
+@Tag(name = "DM", description = "Drive applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
+public interface DriveApi {
 
     @GetMapping("/{code}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @Operation(summary = "Demo weergeven op basis van code.")
-    DemoDTO getDemoByCode(@PathVariable(value = "code")
+    @Operation(summary = "Drive weergeven op basis van code.")
+    DriveDTO getDriveByCode(@PathVariable(value = "code")
                           @Parameter(example = "ABCD", description = "test") String code);
 
 
@@ -96,36 +96,36 @@ public interface DemoApi {
 ```
 
 
-### Create A Pageable GET endpoint to retrieve a list of Demo's
+### Create A Pageable GET endpoint to retrieve a list of Drive's
 * @Parameter = swagger list on the web browser
 
 ```java
-@Tag(name = "DM", description = "Demo applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
-public interface DemoApi {
+@Tag(name = "DR", description = "Drive applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
+public interface DriveApi {
 
     @GetMapping()
-    @Operation(summary = "Lijst weergeven met alle demos als paging.")
+    @Operation(summary = "Lijst weergeven met alle drivers als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
-    PagedModel<?> getAllDemosPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
+    PagedModel<?> getAllDrivesPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 }
 
 ```
 
-### Create A POST endpoint to create a new demo
+### Create A POST endpoint to create a new drive
 ```java
-@Tag(name = "DM", description = "Demo applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DEMO)
-public interface DemoApi {
+@Tag(name = "DR", description = "Drive applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
+public interface DriveApi {
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('admin:READ)")
-    @Operation(summary = "Nieuwe demo aanmaken.")
+    @Operation(summary = "Nieuwe drive aanmaken.")
     @ResponseBody
-    DemoDTO createDemo(@Valid @RequestBody DemoDTO demoDTO);
+    DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO);
 
 
 }
