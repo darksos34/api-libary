@@ -1,5 +1,6 @@
 package dev.jda.api.library.controller;
 
+import dev.jda.api.library.entity.Disk;
 import dev.jda.api.library.requestmapping.RequestPath;
 import dev.jda.model.library.DriveDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -71,6 +72,9 @@ public interface DriveApi {
     @ResponseStatus(HttpStatus.OK)
     DriveDTO patchDriveByUuid(@RequestParam(value = "uuid") String uuid,
                               @RequestBody DriveDTO driveDTO);
+
+    @PostMapping("/createdriveDisk")
+    DriveDTO createDriver(@RequestBody DriveDTO driveDTO, Disk disk) ;
 
     /**
      * Filter on UUID and delete the drive.

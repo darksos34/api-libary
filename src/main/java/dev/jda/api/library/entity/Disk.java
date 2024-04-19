@@ -4,6 +4,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -25,19 +27,19 @@ import java.util.UUID;
 public class Disk {
 
     @Id
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false)
     private String uuid;
 
-    @Column(length = 40, nullable = false)
+    @Column(length = 40)
     private String name;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 15)
     private String code;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 15)
     private String size;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 15)
     private String type;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,4 +50,7 @@ public class Disk {
         this.uuid = UUID.randomUUID().toString();
 
     }
+    @ManyToOne
+    @JoinColumn(name = "drive_id")
+    private Drive drive;
 }

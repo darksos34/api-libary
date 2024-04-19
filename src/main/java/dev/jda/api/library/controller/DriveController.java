@@ -1,5 +1,6 @@
 package dev.jda.api.library.controller;
 
+import dev.jda.api.library.entity.Disk;
 import dev.jda.api.library.entity.Drive;
 import dev.jda.api.library.hal.DriveRepresentationAssembler;
 import dev.jda.api.library.service.DriveService;
@@ -51,6 +52,12 @@ public class DriveController implements DriveApi {
 
     }
 
+    @Override
+    public DriveDTO createDriver(DriveDTO driveDTO, Disk disk) {
+        Drive drive = modelMapper.map(driveDTO, Drive.class);
+        return driveRepresentationAssembler.toModel(driveService.createDriveWithDisk(drive, disk));
+
+}
     @Override
     public void deleteDriveByUuid(String uuid) {
         driveService.deleteDriveByUuid(uuid);

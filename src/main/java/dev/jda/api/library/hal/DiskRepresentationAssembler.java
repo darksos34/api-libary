@@ -26,7 +26,7 @@ public class DiskRepresentationAssembler implements RepresentationModelAssembler
     }
 
     private void addSelfLink(DiskDTO diskDTO) {
-        Link selfLink = WebMvcLinkBuilder.linkTo(methodOn(DiskController.class)).withSelfRel();
+        Link selfLink = WebMvcLinkBuilder.linkTo(methodOn(DiskController.class).getDiskByCode(diskDTO.getCode())).withSelfRel();
         diskDTO.add(selfLink);
     }
 }

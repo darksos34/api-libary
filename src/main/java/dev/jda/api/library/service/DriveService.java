@@ -1,10 +1,13 @@
 package dev.jda.api.library.service;
 
+import dev.jda.api.library.entity.Disk;
 import dev.jda.api.library.entity.Drive;
 import dev.jda.api.library.exception.GlobalExceptionHandler.DriveCodeExistsException;
+import dev.jda.api.library.repository.DiskRepository;
 import dev.jda.api.library.repository.DriveRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,8 @@ import java.util.Optional;
 public class DriveService {
     private static final String DRIVE_NOTFOUND = "Kon de drive niet vinden op basis van UUID";
     private final DriveRepository driveRepository;
-
+    private final ModelMapper modelMapper;
+    private final DiskRepository diskRepository;
     /**
      * Get a drive by its code from the database
      * @param code the code of the drive
@@ -70,7 +74,12 @@ public class DriveService {
 
         return driveRepository.save(existingDrive);
     }
-
+    public Drive createDriveWithDisk(Drive drive, Disk disk) {
+        Drive savedDrive = driveRepository.save(drive);
+        disk.setDrive(savedDrive);
+        diskRepository.save(disk);
+        return modelMapper.map(savedDrive, Drive.class);
+    }
     /**
      * Delete a drive by its uuid
      *
