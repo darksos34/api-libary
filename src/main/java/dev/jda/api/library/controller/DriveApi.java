@@ -73,16 +73,20 @@ public interface DriveApi {
     DriveDTO patchDriveByUuid(@RequestParam(value = "uuid") String uuid,
                               @RequestBody DriveDTO driveDTO);
 
+    /**
+     * @param uuid with the values to be created.
+     * @param disk   with the values to be created.
+     * @return      DriveDTO with the created values.
+     */
     @PostMapping("/createdriveDisk")
-    DriveDTO createDriver(@RequestBody DriveDTO driveDTO, Disk disk) ;
+    Disk createDriverWithDisk(@PathVariable String uuid, @Valid @RequestBody Disk disk);
 
     /**
      * Filter on UUID and delete the drive.
-     *
      * @param uuid of the drive to be deleted.
      */
     @DeleteMapping(path = "/{uuid}")
     @Operation(summary = "Drive verwijderen op basis van UUID.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteDriveByUuid(@PathVariable(value = "uuid")    @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
+    void deleteDriveByUuid(@PathVariable(value = "uuid") @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
 }

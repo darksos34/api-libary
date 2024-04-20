@@ -49,15 +49,13 @@ public class DriveController implements DriveApi {
     public DriveDTO patchDriveByUuid(String uuid, DriveDTO driveDTO) {
         Drive drive = modelMapper.map(driveDTO, Drive.class);
         return driveRepresentationAssembler.toModel(driveService.patchDriveByUuid(uuid, drive));
-
     }
 
     @Override
-    public DriveDTO createDriver(DriveDTO driveDTO, Disk disk) {
-        Drive drive = modelMapper.map(driveDTO, Drive.class);
-        return driveRepresentationAssembler.toModel(driveService.createDriveWithDisk(drive, disk));
+    public Disk createDriverWithDisk(String uuid, Disk disk) {
+        return driveService.createDriveWithDisk(uuid, disk);
+    }
 
-}
     @Override
     public void deleteDriveByUuid(String uuid) {
         driveService.deleteDriveByUuid(uuid);
