@@ -15,7 +15,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DiskService {
 
-    private static final String DISK_NOTFOUND = "Kon de disk niet vinden op basis van UUID";
+    private static final String DISK_NOTFOUND = "Could not find the disk with UUID: %s";
+    private static final String PATCHING_DISK = "Patching disk";
     private final DiskRepository diskRepository;
 
     public Disk getDiskByUuid(String uuid) {
@@ -29,7 +30,7 @@ public class DiskService {
         Optional.ofNullable(disk.getCode()).ifPresent(existingDisk::setCode);
         Optional.ofNullable(disk.getName()).ifPresent(existingDisk::setName);
         Optional.ofNullable(disk.getUuid()).ifPresent(existingDisk::setUuid);
-        log.info("Patching disk", existingDisk);
+        log.info(PATCHING_DISK, existingDisk);
         return diskRepository.save(existingDisk);
     }
 

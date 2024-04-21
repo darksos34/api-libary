@@ -32,7 +32,6 @@ public interface DiskApi {
     DiskDTO getDiskByCode(@PathVariable(value = "uuid")
                             @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8", description = "Filter DISK uuid") String uuid);
 
-    //TODO PutDTO
     /**
      * @param uuid of the disk to be updated.
      * @param diskDTO   with the values to be updated.
@@ -46,7 +45,6 @@ public interface DiskApi {
     DiskDTO putDiskByUuid(@RequestParam(value = "uuid") String uuid,
                             @RequestBody DiskDTO diskDTO);
 
-    //TODO PatchDTO
     /**
      * @param uuid of the disk to be updated.
      * @param diskDTO   with the values to be updated.

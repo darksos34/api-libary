@@ -27,7 +27,7 @@ import java.util.UUID;
 public class Disk {
 
     @Id
-    @Column(name = "id", updatable = false)
+    @Column(name = "id", updatable = false, nullable = false)
     private String uuid;
 
     @Column(length = 40)

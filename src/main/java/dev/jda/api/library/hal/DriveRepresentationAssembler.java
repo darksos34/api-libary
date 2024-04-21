@@ -3,6 +3,7 @@ package dev.jda.api.library.hal;
 import dev.jda.api.library.controller.DriveController;
 import dev.jda.api.library.entity.Drive;
 import dev.jda.model.library.DriveDTO;
+import io.micrometer.common.lang.NonNullApi;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.Link;
@@ -14,6 +15,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 @RequiredArgsConstructor
+@NonNullApi
 public class DriveRepresentationAssembler implements RepresentationModelAssembler<Drive, DriveDTO> {
 
     private final ModelMapper modelMapper;

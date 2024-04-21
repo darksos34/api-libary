@@ -3,6 +3,7 @@ package dev.jda.api.library.hal;
 import dev.jda.api.library.controller.DiskController;
 import dev.jda.api.library.entity.Disk;
 import dev.jda.model.library.DiskDTO;
+import io.micrometer.common.lang.NonNullApi;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.Link;
@@ -14,6 +15,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 @RequiredArgsConstructor
+@NonNullApi
 public class DiskRepresentationAssembler implements RepresentationModelAssembler<Disk, DiskDTO> {
 
     private final ModelMapper modelMapper;

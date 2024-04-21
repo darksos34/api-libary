@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DriveService {
-    private static final String DRIVE_NOTFOUND = "Kon de drive niet vinden op basis van UUID";
+    private static final String DRIVE_NOTFOUND = "Drive with code '%s' was not found";
     private final DriveRepository driveRepository;
     private final DiskRepository diskRepository;
     /**
@@ -27,7 +27,7 @@ public class DriveService {
      */
     public Drive getDriveByCode(String code) {
         return driveRepository.findByCode(code)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Drive met code '%s' is niet gevonden", code)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format(DRIVE_NOTFOUND, code)));
     }
 
     /**
@@ -73,6 +73,11 @@ public class DriveService {
         return driveRepository.save(existingDrive);
     }
 
+    /**
+     * @param uuid create Disk and filter based on UUID by Drive to be updated.
+     * @param disk  with the values to be created.
+     * @return      DiskDTO with the created values.
+     */
     public Disk createDriveWithDisk(String uuid, Disk disk) {
         Optional<Drive> drive = driveRepository.findByUuid(uuid);
         if (drive.isPresent()) {
