@@ -19,11 +19,21 @@ public class DiskService {
     private static final String PATCHING_DISK = "Patching disk";
     private final DiskRepository diskRepository;
 
+    /**
+     * @param uuid the uuid of the disk to get
+     * @return  the disk with the given uuid
+     */
     public Disk getDiskByUuid(String uuid) {
         log.info("Getting disk");
-        return diskRepository.findById(uuid).orElse(null);
+        return diskRepository.findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(DISK_NOTFOUND, uuid)));
     }
 
+    /**
+     * @param uuid the uuid of the disk to patch
+     * @param disk  the disk to patch
+     * @return      the patched disk
+     */
     public Disk patchDiskByUuid(String uuid, Disk disk) {
         Disk existingDisk = diskRepository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DISK_NOTFOUND)));
 
@@ -34,12 +44,20 @@ public class DiskService {
         return diskRepository.save(existingDisk);
     }
 
+    /**
+     * @param uuid the uuid of the disk to delete
+     */
     public void deleteDiskByUuid(String uuid) {
         Disk disk = diskRepository.findByUuid(uuid)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DISK_NOTFOUND)));
         diskRepository.delete(disk);
     }
 
+    /**
+     * @param uuid  the uuid of the disk to put
+     * @param disk  the disk to put
+     * @return    the put disk
+     */
     public Disk putDiskByUuid(String uuid,Disk disk) {
         Disk existingDisk = diskRepository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DISK_NOTFOUND)));
         existingDisk.setCode(disk.getCode());

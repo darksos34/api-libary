@@ -73,6 +73,7 @@ public interface DriveApi {
     DriveDTO patchDriveByUuid(@RequestParam(value = "uuid") String uuid,
                               @RequestBody DriveDTO driveDTO);
 
+    //TODO: The createDriverWithDisk method is not working as expected, check the service for more details.
     /**
      * @param uuid with the values to be created.
      * @param disk   with the values to be created.
