@@ -48,8 +48,8 @@ public class Disk {
     @PrePersist
     public void prePersist(){
         this.uuid = UUID.randomUUID().toString();
-
     }
+
     @ManyToOne
     @JoinColumn(name = "drive_id")
     private Drive drive;

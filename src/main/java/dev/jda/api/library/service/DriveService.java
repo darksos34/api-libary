@@ -19,6 +19,7 @@ public class DriveService {
     private static final String DRIVE_NOTFOUND = "Drive with code '%s' was not found";
     private final DriveRepository driveRepository;
     private final DiskRepository diskRepository;
+
     /**
      * Get a drive by its code from the database
      * @param code the code of the drive
@@ -32,7 +33,6 @@ public class DriveService {
 
     /**
      * Get all drivers from the database
-     *
      * @param pageable the pageable object
      *                 containing the page number and size
      * @return  a pageable list of drivers
@@ -43,7 +43,6 @@ public class DriveService {
 
     /**
      * Save a drive to the database
-     *
      * @param drive Creat a drive to save to the database
      * @return  the saved drive
      * @throws  DriveCodeExistsException if the code already exists
@@ -57,7 +56,6 @@ public class DriveService {
 
     /**
      * Update a drive by its given uuid to the database
-     *
      * @param uuid of the drive to update
      * @param drive  the drive to update
      * @return  the updated drive
@@ -90,7 +88,6 @@ public class DriveService {
 
     /**
      * Delete a drive by its uuid
-     *
      * @param uuid of the drive to delete
      * @throws EntityNotFoundException if the drive is not found
      */

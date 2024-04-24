@@ -3,6 +3,7 @@ package dev.jda.api.library.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
@@ -38,6 +39,7 @@ public class Drive {
         this.uuid = UUID.randomUUID().toString();
 
     }
-    @OneToMany(mappedBy = "drive", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "drive", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Disk> disk;
 }

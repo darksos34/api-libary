@@ -14,6 +14,7 @@ public class GlobalExceptionHandler {
             super(String.format("Drive with code '%s' already exists.", code));
         }
     }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
