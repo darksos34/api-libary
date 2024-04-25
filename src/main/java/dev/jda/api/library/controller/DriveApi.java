@@ -1,6 +1,7 @@
 package dev.jda.api.library.controller;
 
 import dev.jda.api.library.entity.Disk;
+import dev.jda.api.library.exception.GlobalExceptionHandler;
 import dev.jda.api.library.requestmapping.RequestPath;
 import dev.jda.model.library.DriveDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,7 +59,7 @@ public interface DriveApi {
     //@PreAuthorize("hasAuthority('admin:READ)")
     @Operation(summary = "Nieuwe drive aanmaken.")
     @ResponseBody
-    DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO);
+    DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO) throws GlobalExceptionHandler.DriveCodeExistsException;
 
     /**
      * @param uuid   Patch Drive and filter based on UUID to be updated.
@@ -73,14 +74,13 @@ public interface DriveApi {
     DriveDTO patchDriveByUuid(@RequestParam(value = "uuid") String uuid,
                               @RequestBody DriveDTO driveDTO);
 
-    //TODO: The createDriverWithDisk method is not working as expected, check the service for more details.
     /**
      * @param uuid with the values to be created.
      * @param disk   with the values to be created.
      * @return      DriveDTO with the created values.
      */
     @PostMapping("/createdriveDisk")
-    Disk createDriverWithDisk(@PathVariable String uuid, @Valid @RequestBody Disk disk);
+    Disk createDriver(@PathVariable String uuid, @Valid @RequestBody Disk disk);
 
     /**
      * Filter on UUID and delete the drive.

@@ -47,13 +47,12 @@ public class DriveService {
      * @return  the saved drive
      * @throws  DriveCodeExistsException if the code already exists
      */
-    public Drive saveDrive(Drive drive) {
+    public Drive saveDrive(Drive drive) throws DriveCodeExistsException {
         if (driveRepository.existsByCode(drive.getCode())) {
             throw new DriveCodeExistsException(drive.getCode());
         }
         return driveRepository.save(drive);
     }
-
     /**
      * Update a drive by its given uuid to the database
      * @param uuid of the drive to update
@@ -76,11 +75,12 @@ public class DriveService {
      * @param disk  with the values to be created.
      * @return      DiskDTO with the created values.
      */
-    public Disk createDriveWithDisk(String uuid, Disk disk) {
-        Optional<Drive> drive = driveRepository.findByUuid(uuid);
-        if (drive.isPresent()) {
-            disk.setDrive(drive.get());
-        } else {
+    public Disk createDrive(String uuid, Disk disk) {
+        Optional<Drive> driveOptional = driveRepository.findByUuid(uuid);
+        if (driveOptional.isPresent()) {
+            Drive drive = driveOptional.get();
+            disk.setDrive(drive);
+        } else if(driveRepository.existsByCode(uuid)){
             throw new EntityNotFoundException(String.format(uuid, DRIVE_NOTFOUND));
         }
         return diskRepository.save(disk);

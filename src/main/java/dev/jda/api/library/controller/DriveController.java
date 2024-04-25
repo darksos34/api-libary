@@ -2,6 +2,7 @@ package dev.jda.api.library.controller;
 
 import dev.jda.api.library.entity.Disk;
 import dev.jda.api.library.entity.Drive;
+import dev.jda.api.library.exception.GlobalExceptionHandler;
 import dev.jda.api.library.hal.DriveRepresentationAssembler;
 import dev.jda.api.library.service.DriveService;
 
@@ -40,7 +41,7 @@ public class DriveController implements DriveApi {
     }
 
     @Override
-    public DriveDTO createDrive(DriveDTO driveDTO) {
+    public DriveDTO createDrive(DriveDTO driveDTO) throws GlobalExceptionHandler.DriveCodeExistsException {
         Drive drive = modelMapper.map(driveDTO, Drive.class);
         return driveRepresentationAssembler.toModel(driveService.saveDrive(drive));
     }
@@ -52,8 +53,8 @@ public class DriveController implements DriveApi {
     }
 
     @Override
-    public Disk createDriverWithDisk(String uuid, Disk disk) {
-        return driveService.createDriveWithDisk(uuid, disk);
+    public Disk createDriver(String uuid, Disk disk) {
+        return driveService.createDrive(uuid, disk);
     }
 
     @Override
