@@ -4,7 +4,7 @@
 
 <b>Author:</b> <a href="https://github.com/darksos34" target="_blank">Jordy Hamwijk</a><br>
 <b>Created:</b> 2024-04-05<br>
-<b>Last updated:</b> 2024-04-24<br>
+<b>Last updated:</b> 2024-04-26<br>
 
 [![](https://img.shields.io/badge/Spring%20Boot-8A2BE2)]() [![](https://img.shields.io/badge/release-Apr%2004,%202024-blue)]() [![](https://img.shields.io/badge/version-3.2.4-blue)]()
 
@@ -78,7 +78,7 @@ Add additional dependencies:
 
 
 ```java
-
+//Drive is the parent class of Disk
 @Tag(name = "DM", description = "Drive applicatie Endpoints")
 @RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
 public interface DriveApi {
