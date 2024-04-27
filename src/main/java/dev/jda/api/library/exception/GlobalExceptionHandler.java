@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
     public static class DriveCodeExistsException extends Exception {

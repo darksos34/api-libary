@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Tag(name = "DM", description = "Drive applicatie Endpoints")
+@Tag(name = "DR", description = "Drive applicatie Endpoints")
 @RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
 public interface DriveApi {
 

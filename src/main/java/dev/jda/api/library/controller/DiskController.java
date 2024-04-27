@@ -30,7 +30,7 @@ public class DiskController implements DiskApi {
     @Override
     public DiskDTO patchDiskByUuid(String uuid, DiskDTO diskDTO) {
         Disk disk = modelMapper.map(diskDTO, Disk.class);
-        return diskRepresentationAssembler.toModel(diskService.patchDiskByUuid(uuid, disk));
+        return diskRepresentationAssembler.toModel(diskService.updateDiskByUuid(uuid, disk));
     }
 
     @Override

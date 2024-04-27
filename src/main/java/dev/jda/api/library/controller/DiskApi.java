@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Tag(name = "DR", description = "Disk applicatie Endpoints")
+@Tag(name = "DK", description = "Disk applicatie Endpoints")
 @RequestMapping(RequestPath.V1 + RequestPath.DISK)
 public interface DiskApi {
 

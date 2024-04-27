@@ -16,7 +16,6 @@ import java.util.Optional;
 public class DiskService {
 
     private static final String DISK_NOTFOUND = "Could not find the disk with UUID: %s";
-    private static final String PATCHING_DISK = "Patching disk";
     private final DiskRepository diskRepository;
 
     /**
@@ -34,16 +33,15 @@ public class DiskService {
      * @param disk  the disk to patch
      * @return      the patched disk
      */
-    public Disk patchDiskByUuid(String uuid, Disk disk) {
+    public Disk updateDiskByUuid(String uuid, Disk disk) {
         Disk existingDisk = diskRepository.findByUuid(uuid).orElseThrow(() -> new EntityNotFoundException(String.format(uuid, DISK_NOTFOUND)));
 
         Optional.ofNullable(disk.getCode()).ifPresent(existingDisk::setCode);
         Optional.ofNullable(disk.getName()).ifPresent(existingDisk::setName);
         Optional.ofNullable(disk.getUuid()).ifPresent(existingDisk::setUuid);
-        log.info(PATCHING_DISK, existingDisk);
+
         return diskRepository.save(existingDisk);
     }
-
     /**
      * @param uuid the uuid of the disk to delete
      */

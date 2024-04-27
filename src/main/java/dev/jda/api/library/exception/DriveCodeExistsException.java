@@ -12,5 +12,4 @@ public class DriveCodeExistsException extends RuntimeException {
         super("Drive with code " + code + " already exists.");
         this.code = code;
     }
-
 }

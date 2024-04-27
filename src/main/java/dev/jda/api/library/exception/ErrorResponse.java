@@ -21,5 +21,4 @@ public class ErrorResponse {
         this.error = error;
         this.timeStamp = timeStamp;
     }
-
 }
