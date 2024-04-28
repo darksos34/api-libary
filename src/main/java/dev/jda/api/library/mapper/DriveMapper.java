@@ -1,22 +1,22 @@
 //package dev.jda.apilibary.mapper;
 //
-//import dev.jda.apilibary.entity.Drive;
-//import dev.jda.modellibary.DriveDTO;
+//import dev.jda.apilibary.entity.User;
+//import dev.jda.modellibary.UserDTO;
 //import lombok.RequiredArgsConstructor;
 //import org.modelmapper.ModelMapper;
 //import org.springframework.stereotype.Component;
 //
 //@Component
 //@RequiredArgsConstructor
-//public class DriveMapper implements Mapper {
+//public class UserMapper implements Mapper {
 //
 //    @Override
 //    public void createMapper(ModelMapper mm) {
-//        mm.createTypeMap(Drive.class, DriveDTO.class).addMappings(mapper -> mapper.skip(DriveDTO::setName)).setPostConverter(mappingContext -> {
-//            Drive drive = mappingContext.getSource();
-//            DriveDTO driveDTO = mappingContext.getDestination();
-//            driveDTO.setName(drive.getName());
-//            return driveDTO;
+//        mm.createTypeMap(User.class, UserDTO.class).addMappings(mapper -> mapper.skip(UserDTO::setName)).setPostConverter(mappingContext -> {
+//            User user = mappingContext.getSource();
+//            UserDTO userDTO = mappingContext.getDestination();
+//            userDTO.setName(user.getName());
+//            return userDTO;
 //        });
 //    }
 //}

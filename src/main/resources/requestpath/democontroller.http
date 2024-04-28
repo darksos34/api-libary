@@ -1,4 +1,4 @@
-GET http://localhost:8080/v1/drive/1
+GET http://localhost:8080/v1/user/1
 Accept: application/json
 
 ###

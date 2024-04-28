@@ -1,9 +1,9 @@
 package dev.jda.api.library.controller;
 
-import dev.jda.api.library.entity.Disk;
+import dev.jda.api.library.entity.Profile;
 import dev.jda.api.library.exception.GlobalExceptionHandler;
 import dev.jda.api.library.requestmapping.RequestPath;
-import dev.jda.model.library.DriveDTO;
+import dev.jda.model.library.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -25,75 +25,75 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Tag(name = "DR", description = "Drive applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
-public interface DriveApi {
+@Tag(name = "User", description = "User applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.USER)
+public interface UserApi {
 
     /**
-     * @param code of the drive to be displayed.
-     * @return  DriveDTO with the values of the drive.
+     * @param code of the user to be displayed.
+     * @return  UserDTO with the values of the user.
      */
     @GetMapping("/{code}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @Operation(summary = "Drive weergeven op basis van code.")
-    DriveDTO getDriveByCode(@PathVariable(value = "code")
-                          @Parameter(example = "ABCD", description = "Filter DRIVE code") String code);
+    @Operation(summary = "User weergeven op basis van code.")
+    UserDTO getUserByCode(@PathVariable(value = "code")
+                          @Parameter(example = "ABCD", description = "Filter USER code") String code);
 
     /**
      * @param pageable Paging parameters.
-     * @return  Pageable list with all drives.
+     * @return  Pageable list with all users.
      */
     @GetMapping()
-    @Operation(summary = "Lijst weergeven met alle drives als paging.")
+    @Operation(summary = "Lijst weergeven met alle users als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
-    PagedModel<?> getAllDriversPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
+    PagedModel<?> getAllUserrsPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 
     /**
-     * @param driveDTO with the values to be created.
-     * @return  DriveDTO with the created values.
+     * @param userDTO with the values to be created.
+     * @return  UserDTO with the created values.
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('admin:READ)")
-    @Operation(summary = "Nieuwe drive aanmaken.")
+    @Operation(summary = "Nieuwe user aanmaken.")
     @ResponseBody
-    DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO) throws GlobalExceptionHandler.DriveCodeExistsException;
+    UserDTO createUser(@Valid @RequestBody UserDTO userDTO) throws GlobalExceptionHandler.CodeExistsExceptionHandler;
 
 
 
     /**
-     * @param uuid   Patch Drive and filter based on UUID to be updated.
-     * @param driveDTO   DriveDTO with the new values.
-     * @return  DriveDTO with the updated values.
+     * @param uuid   Patch User and filter based on UUID to be updated.
+     * @param userDTO   UserDTO with the new values.
+     * @return  UserDTO with the updated values.
      */
     @PatchMapping(path = "/{id}")
-    @Operation(summary = "Bestaande drive bijwerken.")
+    @Operation(summary = "Bestaande user bijwerken.")
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
     //@PreAuthorize("hasAuthority('admin:READ)")
     @ResponseStatus(HttpStatus.OK)
-    DriveDTO patchDriveByUuid(@RequestParam(value = "uuid") String uuid,
-                              @RequestBody DriveDTO driveDTO);
+    UserDTO patchUserByUuid(@RequestParam(value = "uuid") String uuid,
+                              @RequestBody UserDTO userDTO);
 
     /**
-     *  Create Disk and filter based on UUID by Drive to be updated.
+     *  Create Profile and filter based on UUID by User to be updated.
      * @param uuid  the values to be created.
-     * @param disk   with the values to be created.
-     * @return      DriveDTO with the created values.
+     * @param profile   with the values to be created.
+     * @return      UserDTO with the created values.
      */
-    @PostMapping("/createdriveDisk")
-    @Operation(summary = "Nieuwe drive aanmaken.")
+    @PostMapping("/createuserProfile")
+    @Operation(summary = "Nieuwe Profile aanmaken.")
     @ResponseBody
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
-    Disk createDisk(@RequestParam(value = "uuid") String uuid, @Valid @RequestBody Disk disk);
+    Profile createProfile(@RequestParam(value = "uuid") String uuid, @Valid @RequestBody Profile profile);
 
     /**
-     * Filter on UUID and delete the drive.
-     * @param uuid of the drive to be deleted.
+     * Filter on UUID and delete the user.
+     * @param uuid of the user to be deleted.
      */
     @DeleteMapping(path = "/{uuid}")
-    @Operation(summary = "Drive verwijderen op basis van UUID.")
+    @Operation(summary = "User verwijderen op basis van UUID.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteDriveByUuid(@PathVariable(value = "uuid") @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
+    void deleteUserByUuid(@PathVariable(value = "uuid") @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8") String uuid);
 }

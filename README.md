@@ -78,16 +78,17 @@ Add additional dependencies:
 
 
 ```java
-//Drive is the parent class of Disk
-@Tag(name = "DM", description = "Drive applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
-public interface DriveApi {
+//User is the parent class of Profile
+
+@Tag(name = "USER", description = "User applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.USER)
+public interface UserApi {
 
     @GetMapping("/{code}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @Operation(summary = "Drive weergeven op basis van code.")
-    DriveDTO getDriveByCode(@PathVariable(value = "code")
+    @Operation(summary = "User weergeven op basis van code.")
+    UserDTO getUserByCode(@PathVariable(value = "code")
                           @Parameter(example = "ABCD", description = "test") String code);
 
 
@@ -96,36 +97,36 @@ public interface DriveApi {
 ```
 
 
-### Create A Pageable GET endpoint to retrieve a list of Drive's
+### Create A Pageable GET endpoint to retrieve a list of User's
 * @Parameter = swagger list on the web browser
 
 ```java
-@Tag(name = "DR", description = "Drive applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
-public interface DriveApi {
+@Tag(name = "USER", description = "User applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.USER)
+public interface UserApi {
 
     @GetMapping()
-    @Operation(summary = "Lijst weergeven met alle drivers als paging.")
+    @Operation(summary = "Lijst weergeven met alle users als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
-    PagedModel<?> getAllDrivesPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
+    PagedModel<?> getAllUsersPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 }
 
 ```
 
-### Create A POST endpoint to create a new drive
+### Create A POST endpoint to create a new user
 ```java
-@Tag(name = "DR", description = "Drive applicatie Endpoints")
-@RequestMapping(RequestPath.V1 + RequestPath.DRIVE)
-public interface DriveApi {
+@Tag(name = "USER", description = "User applicatie Endpoints")
+@RequestMapping(RequestPath.V1 + RequestPath.USER)
+public interface UserApi {
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('admin:READ)")
-    @Operation(summary = "Nieuwe drive aanmaken.")
+    @Operation(summary = "Nieuwe user aanmaken.")
     @ResponseBody
-    DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO);
+    UserDTO createUser(@Valid @RequestBody UserDTO userDTO);
 
 
 }

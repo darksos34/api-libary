@@ -3,9 +3,8 @@ package dev.jda.api.library.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -22,8 +21,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "disks")
-public class Disk {
+@Table(name = "users")
+public class User {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)
@@ -35,21 +34,12 @@ public class Disk {
     @Column(length = 15)
     private String code;
 
-    @Column(length = 15)
-    private String size;
-
-    @Column(length = 15)
-    private String type;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Drive> drives;
-
     @PrePersist
     public void prePersist(){
         this.uuid = UUID.randomUUID().toString();
+
     }
 
-    @ManyToOne
-    @JoinColumn(name = "drive_id")
-    private Drive drive;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Profile> profile;
 }

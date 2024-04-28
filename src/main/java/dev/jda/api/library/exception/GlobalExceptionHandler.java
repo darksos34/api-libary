@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    public static class DriveCodeExistsException extends Exception {
-        public DriveCodeExistsException(String code) {
-            super("Drive with code " + code + " already exists.");
+    public static class CodeExistsExceptionHandler extends Exception {
+        public CodeExistsExceptionHandler(String code) {
+            super(" with code " + code + " already exists.");
         }
     }
-    @ExceptionHandler(DriveCodeExistsException.class)
-    public ResponseEntity<ErrorResponse> handleCustomDriveCodeExistsException(DriveCodeExistsException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), 409, "/v1/drives","Conflict", Timestamp.valueOf(LocalDateTime.now()));
+    @ExceptionHandler(CodeExistsExceptionHandler.class)
+    public ResponseEntity<ErrorResponse> handleCustomCodeExistsException(CodeExistsExceptionHandler ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), 409, "/v1/users","Conflict", Timestamp.valueOf(LocalDateTime.now()));
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(NullPointerException.class)
