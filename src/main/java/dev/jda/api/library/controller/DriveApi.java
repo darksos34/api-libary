@@ -61,6 +61,8 @@ public interface DriveApi {
     @ResponseBody
     DriveDTO createDrive(@Valid @RequestBody DriveDTO driveDTO) throws GlobalExceptionHandler.DriveCodeExistsException;
 
+
+
     /**
      * @param uuid   Patch Drive and filter based on UUID to be updated.
      * @param driveDTO   DriveDTO with the new values.
@@ -75,12 +77,16 @@ public interface DriveApi {
                               @RequestBody DriveDTO driveDTO);
 
     /**
-     * @param uuid with the values to be created.
+     *  Create Disk and filter based on UUID by Drive to be updated.
+     * @param uuid  the values to be created.
      * @param disk   with the values to be created.
      * @return      DriveDTO with the created values.
      */
     @PostMapping("/createdriveDisk")
-    Disk createDriver(@PathVariable String uuid, @Valid @RequestBody Disk disk);
+    @Operation(summary = "Nieuwe drive aanmaken.")
+    @ResponseBody
+    @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
+    Disk createDisk(@RequestParam(value = "uuid") String uuid, @Valid @RequestBody Disk disk);
 
     /**
      * Filter on UUID and delete the drive.

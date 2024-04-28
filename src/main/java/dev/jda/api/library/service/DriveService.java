@@ -75,7 +75,7 @@ public class DriveService {
      * @param disk  with the values to be created.
      * @return      DiskDTO with the created values.
      */
-    public Disk createDrive(String uuid, Disk disk) {
+    public Disk createDisk(String uuid, Disk disk) {
         Optional<Drive> driveOptional = driveRepository.findByUuid(uuid);
         if (driveOptional.isPresent()) {
             Drive drive = driveOptional.get();

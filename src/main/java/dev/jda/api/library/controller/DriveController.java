@@ -41,7 +41,7 @@ public class DriveController implements DriveApi {
     }
 
     @Override
-    public DriveDTO createDrive(DriveDTO driveDTO) throws GlobalExceptionHandler.DriveCodeExistsException {
+    public DriveDTO createDrive( DriveDTO driveDTO) throws GlobalExceptionHandler.DriveCodeExistsException {
         Drive drive = modelMapper.map(driveDTO, Drive.class);
         return driveRepresentationAssembler.toModel(driveService.saveDrive(drive));
     }
@@ -53,8 +53,8 @@ public class DriveController implements DriveApi {
     }
 
     @Override
-    public Disk createDriver(String uuid, Disk disk) {
-        return driveService.createDrive(uuid, disk);
+    public Disk createDisk(String uuid, Disk disk) {
+        return driveService.createDisk(uuid, disk);
     }
 
     @Override
