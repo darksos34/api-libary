@@ -2,6 +2,7 @@ package dev.jda.api.library.hal;
 
 import dev.jda.api.library.controller.UserController;
 import dev.jda.api.library.entity.User;
+import dev.jda.model.library.ProfileDTO;
 import dev.jda.model.library.UserDTO;
 import io.micrometer.common.lang.NonNullApi;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,10 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
@@ -19,12 +24,22 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserRepresentationAssembler implements RepresentationModelAssembler<User, UserDTO> {
 
     private final ModelMapper modelMapper;
+    private final ProfileRepresentationAssembler profileReprestoModel;
 
     @Override
-    public UserDTO toModel(User user) {
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+    public UserDTO toModel(User entity) {
+        UserDTO userDTO = modelMapper.map(entity, UserDTO.class);
         addSelfLink(userDTO);
+        userDTO.setProfiles(getProfilesAsModel(entity));
         return userDTO;
+    }
+
+    public List<ProfileDTO> getProfilesAsModel(User entity) {
+        if(entity.getProfiles() == null) return Collections.emptyList();
+        return entity.getProfiles().stream()
+                .map(profileReprestoModel::toModel)
+                .collect(Collectors.toList());
+
     }
 
     private void addSelfLink(UserDTO userDTO) {
