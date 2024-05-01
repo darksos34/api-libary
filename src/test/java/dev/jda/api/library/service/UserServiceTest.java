@@ -1,5 +1,7 @@
 package dev.jda.api.library.service;
 
+import dev.jda.api.library.config.ModelMapperConfiguration;
+import dev.jda.api.library.entity.Profile;
 import dev.jda.api.library.entity.User;
 import dev.jda.api.library.exception.GlobalExceptionHandler;
 import dev.jda.api.library.repository.ProfileRepository;
@@ -9,8 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -26,15 +29,15 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-//@Import(ModelMapperConfiguration.class)
+@Import({ModelMapperConfiguration.class})
 class UserServiceTest {
 
     public static final String USER_CODE = "1234";
 
-    @MockBean
+    @Mock
     protected UserRepository userRepository;
 
-    @MockBean
+    @Mock
     protected ProfileRepository profileRepository;
 
     private UserService unitToTest;
@@ -81,7 +84,7 @@ class UserServiceTest {
 
         when(userRepository.existsByCode(user.getCode())).thenReturn(true);
 
-        assertThrows(RuntimeException.class, () -> unitToTest.saveUser(user));
+        assertThrows(GlobalExceptionHandler.CodeExistsExceptionHandler.class, () -> unitToTest.saveUser(user));
     }
     @Test
     void testSaveUserByUuid_EntityNotFound() {
@@ -140,6 +143,44 @@ class UserServiceTest {
         assertEquals(existingUser.getName(), result.getName());
         assertEquals(existingUser.getUuid(), result.getUuid());
     }
+
+
+    @Test
+    void createProfileReturnsProfileWhenUserExists() {
+        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
+        User user = createUser();
+        Profile profile = new Profile();
+
+        when(userRepository.findByUuid(uuid)).thenReturn(Optional.of(user));
+        when(profileRepository.save(profile)).thenReturn(profile);
+
+        Profile result = unitToTest.createProfile(uuid, profile);
+
+        assertEquals(profile, result);
+    }
+
+    @Test
+    void createProfileThrowsExceptionWhenUserDoesNotExist() {
+        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
+        Profile profile = new Profile();
+
+        when(userRepository.findByUuid(uuid)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(uuid, profile));
+    }
+
+    @Test
+    void createProfileThrowsExceptionWhenUserCodeExists() {
+        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
+        Profile profile = new Profile();
+
+        when(userRepository.findByUuid(uuid)).thenReturn(Optional.empty());
+        when(userRepository.existsByCode(uuid)).thenReturn(true);
+
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(uuid, profile));
+    }
+
+
     @Test
     void shouldDeleteUserWhenUuidExists() {
         String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";

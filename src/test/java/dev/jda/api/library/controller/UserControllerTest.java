@@ -2,6 +2,7 @@ package dev.jda.api.library.controller;
 
 import dev.jda.api.library.config.ModelMapperConfiguration;
 import dev.jda.api.library.entity.User;
+import dev.jda.api.library.hal.ProfileRepresentationAssembler;
 import dev.jda.api.library.hal.UserRepresentationAssembler;
 import dev.jda.api.library.repository.UserRepository;
 import dev.jda.api.library.service.UserService;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @Import({
-        UserService.class, ModelMapperConfiguration.class, UserRepresentationAssembler.class
+        UserService.class, ModelMapperConfiguration.class, UserRepresentationAssembler.class, ProfileRepresentationAssembler.class
 })
 class UserControllerTest {
 
