@@ -1,5 +1,6 @@
 package dev.jda.api.library.hal;
 
+import dev.jda.api.library.config.ModelMapperConfiguration;
 import dev.jda.api.library.entity.Profile;
 import dev.jda.api.library.entity.User;
 import dev.jda.model.library.ProfileDTO;
@@ -11,14 +12,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest
+@Import(ModelMapperConfiguration.class)
 @ExtendWith(MockitoExtension.class)
 class UserRepresentationAssemblerTest {
 
@@ -40,6 +46,25 @@ class UserRepresentationAssemblerTest {
         user = new User();
         userDTO = new UserDTO();
         profileDTO = new ProfileDTO();
+        unitToTest = new UserRepresentationAssembler(modelMapper, profileReprestoModel);
+    }
+
+    @Test
+    void toModel_User() {
+        User createUser = User.builder()
+                .code("1234")
+                .name("testUser")
+                .build();
+        UserDTO result = unitToTest.toModel(createUser);
+        assertEquals(createUser.getCode(), result.getCode());
+        assertNotNull(result.getProfiles());
+        assertEquals(1, result.getProfiles().size());
+        when(modelMapper.map(user, UserDTO.class)).thenReturn(userDTO);
+
+        UserDTO result1 = unitToTest.toModel(user);
+
+        verify(modelMapper).map(user, UserDTO.class);
+        assertEquals(userDTO, result1);
     }
 
     @Test

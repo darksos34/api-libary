@@ -3,16 +3,16 @@ package dev.jda.api.library.controller;
 import dev.jda.api.library.entity.Profile;
 import dev.jda.api.library.entity.User;
 import dev.jda.api.library.exception.GlobalExceptionHandler;
+import dev.jda.api.library.hal.ProfileRepresentationAssembler;
 import dev.jda.api.library.hal.UserRepresentationAssembler;
 import dev.jda.api.library.service.UserService;
-
+import dev.jda.model.library.ProfileDTO;
 import dev.jda.model.library.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-
 import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +23,7 @@ public class UserController implements UserApi {
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final UserRepresentationAssembler userRepresentationAssembler;
+    private final ProfileRepresentationAssembler profileRepresentationAssembler;
     private final PagedResourcesAssembler<User> pagedResourcesAssembler;
 
     @Override
@@ -53,8 +54,9 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public Profile createProfile(String uuid, Profile profile) {
-        return userService.createProfile(uuid, profile);
+    public ProfileDTO createProfile(String uuid, ProfileDTO profileDTO) {
+        Profile profile = modelMapper.map(profileDTO, Profile.class);
+        return profileRepresentationAssembler.toModel(userService.createProfile(uuid, profile));
     }
 
     @Override

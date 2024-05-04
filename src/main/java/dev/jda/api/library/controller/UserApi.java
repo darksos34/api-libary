@@ -1,8 +1,8 @@
 package dev.jda.api.library.controller;
 
-import dev.jda.api.library.entity.Profile;
 import dev.jda.api.library.exception.GlobalExceptionHandler;
 import dev.jda.api.library.requestmapping.RequestPath;
+import dev.jda.model.library.ProfileDTO;
 import dev.jda.model.library.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -77,16 +77,17 @@ public interface UserApi {
                               @RequestBody UserDTO userDTO);
 
     /**
-     *  Create Profile and filter based on UUID by User to be updated.
-     * @param uuid  the values to be created.
-     * @param profile   with the values to be created.
-     * @return      UserDTO with the created values.
+     * Create Profile and filter based on UUID by User to be updated.
+     *
+     * @param uuid    the values to be created.
+     * @param profile with the values to be created.
+     * @return UserDTO with the created values.
      */
     @PostMapping("/createuserProfile")
     @Operation(summary = "Nieuwe Profile aanmaken.")
     @ResponseBody
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")
-    Profile createProfile(@RequestParam(value = "uuid") String uuid, @Valid @RequestBody Profile profile);
+    ProfileDTO createProfile(@RequestParam(value = "uuid") String uuid, @Valid @RequestBody ProfileDTO profile);
 
     /**
      * Filter on UUID and delete the user.
