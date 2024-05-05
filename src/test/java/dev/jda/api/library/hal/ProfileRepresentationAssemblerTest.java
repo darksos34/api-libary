@@ -2,7 +2,7 @@ package dev.jda.api.library.hal;
 
 import dev.jda.api.library.controller.ProfileController;
 import dev.jda.api.library.entity.Profile;
-import dev.jda.model.library.ProfileDTO;
+import dev.jda.model.library.dto.ProfileDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
