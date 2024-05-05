@@ -2,8 +2,8 @@ package dev.jda.api.library.controller;
 
 import dev.jda.api.library.exception.GlobalExceptionHandler;
 import dev.jda.api.library.requestmapping.RequestPath;
-import dev.jda.model.library.ProfileDTO;
-import dev.jda.model.library.UserDTO;
+import dev.jda.model.library.dto.ProfileDTO;
+import dev.jda.model.library.dto.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

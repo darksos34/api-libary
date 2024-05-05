@@ -2,8 +2,8 @@ package dev.jda.api.library.hal;
 
 import dev.jda.api.library.controller.UserController;
 import dev.jda.api.library.entity.User;
-import dev.jda.model.library.ProfileDTO;
-import dev.jda.model.library.UserDTO;
+import dev.jda.model.library.dto.ProfileDTO;
+import dev.jda.model.library.dto.UserDTO;
 import io.micrometer.common.lang.NonNullApi;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
