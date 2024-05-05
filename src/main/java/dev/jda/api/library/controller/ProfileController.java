@@ -3,7 +3,7 @@ package dev.jda.api.library.controller;
 import dev.jda.api.library.entity.Profile;
 import dev.jda.api.library.hal.ProfileRepresentationAssembler;
 import dev.jda.api.library.service.ProfileService;
-import dev.jda.model.library.ProfileDTO;
+import dev.jda.model.library.dto.ProfileDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.RestController;

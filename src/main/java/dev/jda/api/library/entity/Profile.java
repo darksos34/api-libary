@@ -16,6 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +44,9 @@ public class Profile {
     @Column(length = 15)
     private String type;
 
+    @Column(length = 15)
+    private LocalDateTime date;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
@@ -55,4 +59,5 @@ public class Profile {
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
+
 }
