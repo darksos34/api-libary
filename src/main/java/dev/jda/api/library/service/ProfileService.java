@@ -24,7 +24,7 @@ public class ProfileService {
      */
     public Profile getProfileByUuid(String uuid) {
         log.info("Getting profile");
-        return profileRepository.findById(uuid)
+        return profileRepository.findByUuid(uuid)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(PROFILE_NOTFOUND, uuid)));
     }
 
