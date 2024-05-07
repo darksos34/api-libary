@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -32,7 +31,7 @@ import static org.modelmapper.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Import({ ProfileService.class, ProfileController.class, ProfileRepresentationAssembler.class, ModelMapperConfiguration.class, PagedResourcesAssembler.class
+@Import({ ProfileService.class, ProfileController.class, ProfileRepresentationAssembler.class, ModelMapperConfiguration.class
 })
 @WebMvcTest(ProfileController.class)
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +47,24 @@ class ProfileControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Test
+    void testPatchProfileByUuidController() throws  Exception{
+        when(unitToTest.updateProfileByUuid(anyString(), any())).thenReturn(createProfile());
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .patch("/v1/profile/{uuid}", "1234")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(PROFILE_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("$.uuid", is("1234")))
+                .andExpect((ResultMatcher) jsonPath("$.code", is("A1B2")))
+                .andExpect((ResultMatcher) jsonPath("$.date", is((LocalDateTime.of(2021, 1, 1, 0, 0)))))
+                .andExpect((ResultMatcher) jsonPath("$.name", is("profile")));
+    }
 
     @Test
     void patchProfileByUuidHappyPath() throws Exception {
@@ -94,10 +111,10 @@ class ProfileControllerTest {
 
     private Profile createProfile() {
         return Profile.builder()
-                .uuid("test-uuid")
-                .name("test-name")
-                .code("test-code")
-                .date(LocalDateTime.parse("test-date"))
+                .uuid("1234")
+                .name("profile")
+                .code("A1B2")
+                .date(LocalDateTime.of(2021, 1, 1, 0, 0))
                 .build();
     }
 }
