@@ -33,6 +33,7 @@ import static org.mockito.Mockito.when;
 class UserServiceTest {
 
     public static final String USER_CODE = "1234";
+    public static final String USER_UUID = "nots5jj-8819-9952-b3ds-l0os8iwwejsa";
 
     @Mock
     protected UserRepository userRepository;
@@ -88,30 +89,29 @@ class UserServiceTest {
     }
     @Test
     void testSaveUserByUuid_EntityNotFound() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
         User newUser = createUser();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.empty());
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> unitToTest.patchUserByUuid(uuid, newUser));
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.patchUserByUuid(USER_UUID, newUser));
     }
 
     @Test
     void testSaveUserByUuid_HappyPath_WithArgumentCaptor() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
+
         User existingUser = createUser();
         User newUser = User.builder()
                 .code("5678")
                 .name("piet")
-                .uuid(uuid)
+                .uuid(USER_UUID)
                 .build();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.of(existingUser));
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 
-        User result = unitToTest.patchUserByUuid(uuid, newUser);
+        User result = unitToTest.patchUserByUuid(USER_UUID, newUser);
 
         verify(userRepository).save(userCaptor.capture());
         User capturedUser = userCaptor.getValue();
@@ -126,7 +126,6 @@ class UserServiceTest {
     }
     @Test
     void testSaveUserByUuid_NullFieldsInNewUser() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
         User existingUser = createUser();
         User newUser = User.builder()
                 .code(null)
@@ -134,10 +133,10 @@ class UserServiceTest {
                 .uuid(null)
                 .build();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.of(existingUser));
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        User result = unitToTest.patchUserByUuid(uuid, newUser);
+        User result = unitToTest.patchUserByUuid(USER_UUID, newUser);
 
         assertEquals(existingUser.getCode(), result.getCode());
         assertEquals(existingUser.getName(), result.getName());
@@ -147,48 +146,44 @@ class UserServiceTest {
 
     @Test
     void createProfileReturnsProfileWhenUserExists() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
         User user = createUser();
         Profile profile = new Profile();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.of(user));
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.of(user));
         when(profileRepository.save(profile)).thenReturn(profile);
 
-        Profile result = unitToTest.createProfile(uuid, profile);
+        Profile result = unitToTest.createProfile(USER_UUID, profile);
 
         assertEquals(profile, result);
     }
 
     @Test
     void createProfileThrowsExceptionWhenUserDoesNotExist() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
         Profile profile = new Profile();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.empty());
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(uuid, profile));
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(USER_UUID, profile));
     }
 
     @Test
     void createProfileThrowsExceptionWhenUserCodeExists() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
         Profile profile = new Profile();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.empty());
-        when(userRepository.existsByCode(uuid)).thenReturn(true);
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.empty());
+        when(userRepository.existsByCode(USER_UUID)).thenReturn(true);
 
-        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(uuid, profile));
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(USER_UUID, profile));
     }
 
 
     @Test
     void shouldDeleteUserWhenUuidExists() {
-        String uuid = "f3as5jj-8819-9952-b3ds-l0os8iwwejsa";
         User user = createUser();
 
-        when(userRepository.findByUuid(uuid)).thenReturn(Optional.of(user));
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.of(user));
 
-        unitToTest.deleteUserByUuid(uuid);
+        unitToTest.deleteUserByUuid(USER_UUID);
 
         verify(userRepository).delete(user);
     }
@@ -197,7 +192,7 @@ class UserServiceTest {
         return User.builder()
                 .code("1234")
                 .name("henk")
-                .uuid("f3as5jj-8819-9952-b3ds-l0os8iwwejsa")
+                .uuid(USER_UUID)
                 .build();
     }
 }

@@ -76,13 +76,9 @@ public class UserService {
      * @return      ProfileDTO with the created values.
      */
     public Profile createProfile(String uuid, Profile profile) {
-        Optional<User> userOptional = userRepository.findByUuid(uuid);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            profile.setUser(user);
-        } else if(userRepository.existsByCode(uuid)){
-            throw new EntityNotFoundException(String.format(uuid, USER_NOTFOUND));
-        }
+        User user = userRepository.findByUuid(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        profile.setUser(user);
         return profileRepository.save(profile);
     }
 
@@ -92,7 +88,7 @@ public class UserService {
      * @throws EntityNotFoundException if the user is not found
      */
     public void deleteUserByUuid(String uuid) {
-      User user = userRepository.findByUuid(uuid)
+        User user = userRepository.findByUuid(uuid)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(uuid, USER_NOTFOUND)));
         userRepository.delete(user);
     }

@@ -4,7 +4,7 @@
 
 <b>Author:</b> <a href="https://github.com/darksos34" target="_blank">Jordy Hamwijk</a><br>
 <b>Created:</b> 2024-04-05<br>
-<b>Last updated:</b> 2024-05-07</br>
+<b>Last updated:</b> 2024-05-12</br>
 
 [![](https://img.shields.io/badge/Spring%20Boot-8A2BE2)]() [![](https://img.shields.io/badge/release-Apr%2004,%202024-blue)]() [![](https://img.shields.io/badge/version-3.2.4-blue)]()
 
@@ -30,7 +30,7 @@ Spring Boot simplifies building RESTful APIs by providing a framework for handli
 
 ### 2.1 Create a Spring Boot Application
 
-Go to [Spring](start.spring.io) and create a new Spring Boot project.
+Go to [Spring](https://start.spring.io) and create a new Spring Boot project.
 
 ![01-start-spring-io](https://github.com/darksos34/api-library/blob/master/src/main/resources/images/sping.initializr.png)
 
