@@ -176,6 +176,13 @@ class UserServiceTest {
         assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(USER_UUID, profile));
     }
 
+    @Test
+    void testDeleteUserByUuid_EntityNotFound() {
+        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.deleteUserByUuid(USER_UUID));
+    }
+
 
     @Test
     void shouldDeleteUserWhenUuidExists() {

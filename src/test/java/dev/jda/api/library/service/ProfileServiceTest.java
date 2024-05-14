@@ -101,6 +101,38 @@ class ProfileServiceTest {
 
     }
 
+    @Test
+    void testDeleteProfileByUuid() {
+        // Arrange: Set up any necessary data or mock behavior
+        when(profileRepository.findByUuid(any())).thenReturn(Optional.of(createProfile()));
+
+        // Act: Call the method under test
+        unitToTest.deleteProfileByUuid(PROFILE_UUID);
+
+        // Assert: Check that the method behaved as expected
+        verify(profileRepository).delete(createProfile());
+    }
+    @Test
+    void testDeleteProfileByUuidNotFound() {
+        // Arrange: Set up any necessary data or mock behavior
+        when(profileRepository.findByUuid(any())).thenReturn(Optional.empty());
+
+        // Act: Call the method under test
+        // Assert: Check that the method behaved as expected
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.deleteProfileByUuid(PROFILE_UUID));
+    }
+
+    @Test
+    void testUpdateProfileByUuidNotFound() {
+        // Arrange: Set up any necessary data or mock behavior
+        when(profileRepository.findByUuid(any())).thenReturn(Optional.empty());
+
+        // Act: Call the method under test
+        // Assert: Check that the method behaved as expected
+        assertThrows(EntityNotFoundException.class, () -> unitToTest.updateProfileByUuid(PROFILE_UUID, createProfile()));
+    }
+
+
     private Profile createProfile() {
         return Profile.builder()
                 .uuid("1234")
