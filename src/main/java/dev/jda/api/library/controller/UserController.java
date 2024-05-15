@@ -32,6 +32,12 @@ public class UserController implements UserApi {
     }
 
     @Override
+    public UserDTO getUserByUuid(String uuid) {
+        return userRepresentationAssembler.toModel(userService.getUserByUuid(uuid));
+    }
+
+
+    @Override
     @SuppressWarnings (value="unchecked")
     public PagedModel<UserDTO> getAllUserrsPageable(Pageable pageable) {
         Page<User> userPage =  userService.getAllUserrsPageable(pageable);

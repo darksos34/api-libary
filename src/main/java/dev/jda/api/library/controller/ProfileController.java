@@ -17,7 +17,7 @@ public class ProfileController implements ProfileApi {
     private final ProfileRepresentationAssembler profileRepresentationAssembler;
 
     @Override
-    public ProfileDTO getProfileByCode(String uuid) {
+    public ProfileDTO getProfileByUuid(String uuid) {
         return profileRepresentationAssembler.toModel(profileService.getProfileByUuid(uuid));
     }
 

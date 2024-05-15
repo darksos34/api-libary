@@ -23,9 +23,8 @@ public class ProfileService {
      * @return  the profile with the given uuid
      */
     public Profile getProfileByUuid(String uuid) {
-        log.info("Getting profile");
         return profileRepository.findByUuid(uuid)
-                .orElseThrow(() -> new EntityNotFoundException(String.format(PROFILE_NOTFOUND, uuid)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format(uuid, PROFILE_NOTFOUND)));
     }
 
     /**
@@ -38,7 +37,6 @@ public class ProfileService {
 
         Optional.ofNullable(profile.getCode()).ifPresent(existingProfile::setCode);
         Optional.ofNullable(profile.getName()).ifPresent(existingProfile::setName);
-        Optional.ofNullable(profile.getUuid()).ifPresent(existingProfile::setUuid);
 
         return profileRepository.save(existingProfile);
     }

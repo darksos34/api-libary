@@ -28,7 +28,7 @@ public class UserService {
      */
     public User getUserByCode(String code) {
         return userRepository.findByCode(code)
-                .orElseThrow(() -> new EntityNotFoundException(String.format(USER_NOTFOUND, code)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format(USER_NOTFOUND)));
     }
 
     /**
@@ -92,4 +92,13 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(String.format(uuid, USER_NOTFOUND)));
         userRepository.delete(user);
     }
+    /**
+     * @param uuid the uuid of the profile to get
+     * @return  the profile with the given uuid
+     */
+    public User getUserByUuid(String uuid) {
+        return userRepository.findByUuid(uuid)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(uuid, USER_NOTFOUND)));
+    }
+
 }

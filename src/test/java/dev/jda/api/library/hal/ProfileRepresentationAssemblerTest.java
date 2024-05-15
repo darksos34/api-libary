@@ -53,7 +53,7 @@ class ProfileRepresentationAssemblerTest {
 
         ProfileDTO result = unitToTest.toModel(profile);
 
-        Link expectedLink = WebMvcLinkBuilder.linkTo(methodOn(ProfileController.class).getProfileByCode(profileDTO.getCode())).withSelfRel();
+        Link expectedLink = WebMvcLinkBuilder.linkTo(methodOn(ProfileController.class).getProfileByUuid(profileDTO.getCode())).withSelfRel();
         assertTrue(result.hasLink(expectedLink.getRel()));
         assertEquals(expectedLink, result.getLink(expectedLink.getRel()).get());
     }

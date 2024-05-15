@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Tag(name = "Profile", description = "Profile applicatie Endpoints")
@@ -26,10 +25,8 @@ public interface ProfileApi {
      * @return  ProfileDTO with the values of the profile.
      */
     @GetMapping("/{uuid}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     @Operation(summary = "Profile weergeven op basis van uuid.")
-    ProfileDTO getProfileByCode(@PathVariable(value = "uuid")
+    ProfileDTO getProfileByUuid(@PathVariable(value = "uuid")
                             @Parameter(example = "bc249d76-617a-4dfa-be47e7effeab8", description = "Filter PROFILE uuid") String uuid);
 
     /**

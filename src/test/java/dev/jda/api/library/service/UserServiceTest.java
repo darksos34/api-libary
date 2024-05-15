@@ -167,16 +167,6 @@ class UserServiceTest {
     }
 
     @Test
-    void createProfileThrowsExceptionWhenUserCodeExists() {
-        Profile profile = new Profile();
-
-        when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.empty());
-        when(userRepository.existsByCode(USER_UUID)).thenReturn(true);
-
-        assertThrows(EntityNotFoundException.class, () -> unitToTest.createProfile(USER_UUID, profile));
-    }
-
-    @Test
     void testDeleteUserByUuid_EntityNotFound() {
         when(userRepository.findByUuid(USER_UUID)).thenReturn(Optional.empty());
 

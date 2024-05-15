@@ -41,6 +41,16 @@ public interface UserApi {
                           @Parameter(example = "ABCD", description = "Filter USER code") String code);
 
     /**
+     * @param uuid of the user to be displayed.
+     * @return  UserDTO with the values of the user.
+     */
+    @GetMapping("/{uuid}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @Operation(summary = "User weergeven op basis van uuid.")
+    UserDTO getUserByUuid(String uuid);
+
+    /**
      * @param pageable Paging parameters.
      * @return  Pageable list with all users.
      */
