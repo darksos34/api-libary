@@ -58,13 +58,13 @@ public interface UserApi {
     @Operation(summary = "Lijst weergeven met alle users als paging.")
     @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), in = ParameterIn.QUERY)
     @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "20"), in = ParameterIn.QUERY)
-    PagedModel<?> getAllUserrsPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
+    PagedModel<UserDTO> getAllUserrsPageable(@ParameterObject @Parameter(hidden = true) Pageable pageable);
 
     /**
      * @param userDTO with the values to be created.
      * @return  UserDTO with the created values.
      */
-    @PostMapping
+    @PostMapping("/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('admin:READ)")
     @Operation(summary = "Nieuwe user aanmaken.")
@@ -93,7 +93,7 @@ public interface UserApi {
      * @param profile with the values to be created.
      * @return UserDTO with the created values.
      */
-    @PostMapping("/createuserProfile")
+    @PostMapping("/createProfile")
     @Operation(summary = "Nieuwe Profile aanmaken.")
     @ResponseBody
     @Parameter( name = "uuid", example = "bc249d76-617a-4dfa-be47e7effeab8")

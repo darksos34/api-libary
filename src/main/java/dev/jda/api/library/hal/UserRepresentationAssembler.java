@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -38,8 +37,7 @@ public class UserRepresentationAssembler implements RepresentationModelAssembler
         if(entity.getProfiles() == null) return Collections.emptyList();
         return entity.getProfiles().stream()
                 .map(profileReprestoModel::toModel)
-                .collect(Collectors.toList());
-
+                .toList();
     }
 
     private void addSelfLink(UserDTO userDTO) {
